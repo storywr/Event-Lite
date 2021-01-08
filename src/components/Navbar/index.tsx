@@ -1,6 +1,5 @@
 import React, { useContext } from 'react'
 import {
-  Box,
   Button,
   Flex,
   Heading
@@ -27,7 +26,7 @@ const Navbar = () => {
 
       <Flex mr='1rem' alignItems='center'>
         <ThemeSelector />
-        <Button variant='ghost' onClick={() => authContext.logout()}>Logout</Button> 
+        <Button ml='1rem' variant='ghost' onClick={() => authContext.logout()}>Logout</Button> 
       </Flex>
 
     </Flex>

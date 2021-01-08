@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import { Route, Switch, Redirect } from 'react-router-dom'
-import { Box, Flex } from '@chakra-ui/react'
+import { Flex } from '@chakra-ui/react'
 
 import Dashboard from './Dashboard'
 import { AuthContext } from '../context'
