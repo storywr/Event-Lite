@@ -1,12 +1,8 @@
-import React, { useContext } from 'react'
-
-import { AuthContext } from '../../context'
+import React from 'react'
 
 const Dashboard = () => {
-  const authContext = useContext(AuthContext)
-
   return (
-    <button onClick={() => authContext.logout()}>test</button>
+    <div>test</div>
   )
 }
 

@@ -3,7 +3,7 @@ import { Box, Flex } from '@chakra-ui/react'
 
 import LoginForm from './LoginForm'
 import LoginHeader from './LoginHeader'
-import ThemeSelector from './ThemeSelector'
+import ThemeSelector from '../../components/ThemeSelector'
 
 const VARIANT_COLOR = 'teal'
 

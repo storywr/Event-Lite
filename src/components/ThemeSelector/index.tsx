@@ -1,4 +1,3 @@
-import { Theme } from '@chakra-ui/react'
 import * as React from 'react'
 import {
   Box,
@@ -13,6 +12,7 @@ const ThemeSelector = () => {
   return (
     <Box textAlign='right' py={4}>
       <IconButton 
+        variant='ghost'
         aria-label=''
         size='lg'
         onClick={() => toggleColorMode()}

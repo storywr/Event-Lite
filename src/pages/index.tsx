@@ -1,8 +1,10 @@
 import React, { useContext } from 'react'
 import { Route, Switch, Redirect } from 'react-router-dom'
+import { Box, Flex } from '@chakra-ui/react'
 
 import Dashboard from './Dashboard'
 import { AuthContext } from '../context'
+import Navbar from '../components/Navbar'
 
 const Home = () => {
   const authContext = useContext(AuthContext)
@@ -12,11 +14,18 @@ const Home = () => {
   }
 
   return (
-    <Switch>
-      <Route exact path='/'>
-        <Dashboard />
-      </Route>
-    </Switch>
+    <Flex minH='100vh' flexDirection='column'>
+      <Switch>
+        <>
+          <Navbar />
+          <Flex ml='3rem' mt='2rem'>
+            <Route exact path='/'>
+              <Dashboard />
+            </Route>
+          </Flex>
+        </>
+      </Switch>
+    </Flex>
   )
 }
 
