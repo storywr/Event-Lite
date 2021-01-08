@@ -9,6 +9,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import Home from './pages'
 import { AuthContext } from './context'
 import ls from './util/localstore'
+import Authentication from './pages/Authentication'
 
 const App = () => {
   const [user, setUser] = useState<string | null>(null)
@@ -32,6 +33,9 @@ const App = () => {
       <AuthContext.Provider value={{ user, login, logout }}>
         <Router>
           <Switch>
+            <Route exact path='/login'>
+              <Authentication />
+            </Route>
             <Route path='/'>
               <Home />
             </Route>

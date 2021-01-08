@@ -11,6 +11,7 @@ import {
   Stack
 } from '@chakra-ui/react'
 import { useForm } from 'react-hook-form'
+import { Redirect, useHistory } from 'react-router-dom'
 
 import { AuthContext } from '../../context'
 import ls from '../../util/localstore'
@@ -27,6 +28,11 @@ interface LoginProps {
 const LoginForm = ({ variantColor }: Props) => {
   const authContext = useContext(AuthContext)
   const { register, handleSubmit } = useForm()
+  const history = useHistory()
+
+  if (authContext.user) {
+    return <Redirect to={{ pathname: '/' }} />
+  }
 
   const onSubmit = ({ email, password }: LoginProps) => {
     axios({
@@ -46,6 +52,7 @@ const LoginForm = ({ variantColor }: Props) => {
 
       ls.set('user', user)
       authContext.login(user)
+      history.push('/')
     })
   }
 
