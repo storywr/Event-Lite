@@ -7,10 +7,11 @@ import { hot } from 'react-hot-loader/root'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 
 import Home from './pages'
-import { AuthContext } from "./context"
+import { AuthContext } from './context'
+import ls from './util/localstore'
 
 const App = () => {
-  const [user, setUser] = useState<any>(null)
+  const [user, setUser] = useState<string | null>(null)
 
   const login = (currentUser: string) => {
     setUser(currentUser)
@@ -18,10 +19,11 @@ const App = () => {
 
   const logout = () => {
     setUser(null)
+    ls.remove('user')
   }
 
   useEffect(() => {
-    const user = localStorage?.getItem('user')
+    const user = ls.get('user')
     setUser(user)
   }, [])
 

@@ -1,7 +1,13 @@
-import React from 'react'
+import React, { useContext } from 'react'
 
-const Dashboard = () => (
-  <>test</>
-)
+import { AuthContext } from '../../context'
+
+const Dashboard = () => {
+  const authContext = useContext(AuthContext)
+
+  return (
+    <button onClick={() => authContext.logout()}>test</button>
+  )
+}
 
 export default Dashboard

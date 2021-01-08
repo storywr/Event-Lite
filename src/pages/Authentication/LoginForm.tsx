@@ -13,16 +13,22 @@ import {
 import { useForm } from 'react-hook-form'
 
 import { AuthContext } from '../../context'
+import ls from '../../util/localstore'
 
 interface Props {
   variantColor: string
+}
+
+interface LoginProps {
+  email: string
+  password: string
 }
 
 const LoginForm = ({ variantColor }: Props) => {
   const authContext = useContext(AuthContext)
   const { register, handleSubmit } = useForm()
 
-  const onSubmit = ({ email, password }: any) => {
+  const onSubmit = ({ email, password }: LoginProps) => {
     axios({
       method: 'POST',
       url: 'http://localhost:3001/auth/sign_in',
@@ -38,7 +44,7 @@ const LoginForm = ({ variantColor }: Props) => {
         'uid': data.data.uid
       })
 
-      localStorage?.setItem('user', user)
+      ls.set('user', user)
       authContext.login(user)
     })
   }
