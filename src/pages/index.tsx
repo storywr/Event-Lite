@@ -1,18 +1,14 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext } from 'react'
 
 import Authentication from './Authentication'
 import Dashboard from './Dashboard'
+import { AuthContext } from '../context'
 
 const Home = () => {
-  const [user, setUser] = useState<any>(null)
-
-  useEffect(() => {
-    const user = localStorage?.getItem('user')
-    setUser(user)
-  }, [])
+  const authContext = useContext(AuthContext)
 
   return (
-    user ? <Dashboard /> : <Authentication />
+    authContext?.user ? <Dashboard /> : <Authentication />
   )
 }
 

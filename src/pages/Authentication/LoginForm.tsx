@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React, { useContext } from 'react'
 import axios from 'axios'
 import {
   Box,
@@ -12,7 +12,14 @@ import {
 } from '@chakra-ui/react'
 import { useForm } from 'react-hook-form'
 
-const LoginForm = ({ variantColor }: any) => {
+import { AuthContext } from '../../context'
+
+interface Props {
+  variantColor: string
+}
+
+const LoginForm = ({ variantColor }: Props) => {
+  const authContext = useContext(AuthContext)
   const { register, handleSubmit } = useForm()
 
   const onSubmit = ({ email, password }: any) => {
@@ -25,12 +32,14 @@ const LoginForm = ({ variantColor }: any) => {
       }
     })
     .then(({ data, headers }) => {
-      localStorage?.setItem('user',
-        JSON.stringify({
-          'access-token': headers['access-token'],
-          'client': headers['client'],
-          'uid': data.data.uid
-      }))
+      const user = JSON.stringify({
+        'access-token': headers['access-token'],
+        'client': headers['client'],
+        'uid': data.data.uid
+      })
+
+      localStorage?.setItem('user', user)
+      authContext.login(user)
     })
   }
 
