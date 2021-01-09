@@ -14,6 +14,7 @@ import {
   useDisclosure
 } from '@chakra-ui/react'
 import { AddIcon, HamburgerIcon } from '@chakra-ui/icons'
+import format from 'date-fns/format'
 
 import Alert from '../../components/Alert'
 import AddModal from './AddModal'
@@ -24,6 +25,7 @@ export interface Event {
   id: string | number
   title: string
   location: string
+  start_datetime: string
 }
 
 const useEvents = () => {
@@ -77,14 +79,24 @@ const Dashboard = () => {
       <SimpleGrid mb='2rem' columns={3} spacing={35}>
         {data.map((event: Event) => (
           <Box
+            boxShadow='md'
+            rounded='lg'
             p='1rem'
             minW='sm'
             minH='sm'
             borderWidth='1px'
             key={event.id}
           >
-            <Flex justifyContent='space-between' fontWeight='bold'>
-              <Flex maxW='80%' flexWrap='wrap'>{event.title}</Flex>
+            <Flex justifyContent='space-between'>
+              <Flex
+                textTransform='uppercase'
+                fontSize='md'
+                fontWeight='semibold'
+                maxW='80%'
+                flexWrap='wrap'
+              >
+                {event.title}
+              </Flex>
               <Menu>
                 <MenuButton variant='ghost' as={Button}>
                   <HamburgerIcon />
@@ -96,6 +108,9 @@ const Dashboard = () => {
               </Menu>
             </Flex>
             <Flex mt='0.5rem' maxW='80%' flexWrap='wrap'>{event.location}</Flex>
+            <Flex mt='0.5rem' maxW='80%' flexWrap='wrap'>
+              {format(new Date(event['start_datetime']), 'M/d/yyyy, h:mm aa')}
+            </Flex>
           </Box>
         ))}
         <Button
