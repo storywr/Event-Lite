@@ -8,9 +8,10 @@ import {
   Input,
 } from '@chakra-ui/react'
 import { useForm } from 'react-hook-form'
-// @ts-ignore
-import DateTimePicker from 'react-datetime-picker'
 import { useQueryClient, useMutation } from 'react-query'
+import 'date-fns'
+import DateFnsUtils from '@date-io/date-fns'
+import { DateTimePicker, MuiPickersUtilsProvider } from "@material-ui/pickers"
 
 interface Props {
   onClose: () => {}
@@ -49,33 +50,42 @@ const AddForm = ({ onClose, variantColor }: Props) => {
   }
 
   return (
-    <Box my={8} textAlign='left'>
-      <form>
-        <FormControl>
-          <FormLabel>Title</FormLabel>
-          <Input ref={register} name='title' />
-        </FormControl>
+    <MuiPickersUtilsProvider utils={DateFnsUtils}>
+      <Box my={8} textAlign='left'>
+        <form>
+          <FormControl>
+            <FormLabel>Title</FormLabel>
+            <Input ref={register} name='title' />
+          </FormControl>
 
-        <FormControl mt={4}>
-          <FormLabel>Location</FormLabel>
-          <Input ref={register} name='location' />
-        </FormControl>
+          <FormControl mt={4}>
+            <FormLabel>Location</FormLabel>
+            <Input ref={register} name='location' />
+          </FormControl>
 
-        <DateTimePicker
-          onChange={setDatetime}
-          value={datetime}
-        />
+          <Box w='325px' mt={4} mb='1rem'>
+            <FormLabel>Date</FormLabel>
+            <DateTimePicker
+              color='primary'
+              variant='static'
+              label="DateTimePicker"
+              inputVariant="outlined"
+              value={datetime}
+              onChange={(date: any) => setDatetime(date)}
+            />
+          </Box>
 
-        <Button
-          onClick={handleSubmit(onSubmit)}
-          colorScheme={variantColor}
-          width='full'
-          mt={4}
-        >
-          Add Event
-        </Button>
-      </form>
-    </Box>
+          <Button
+            onClick={handleSubmit(onSubmit)}
+            colorScheme={variantColor}
+            width='full'
+            mt={4}
+          >
+            Add Event
+          </Button>
+        </form>
+      </Box>
+    </MuiPickersUtilsProvider>
   )
 }
 
