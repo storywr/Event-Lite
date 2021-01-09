@@ -13,6 +13,8 @@ import 'date-fns'
 import DateFnsUtils from '@date-io/date-fns'
 import { DateTimePicker, MuiPickersUtilsProvider } from "@material-ui/pickers"
 
+import TimePickerWrapper from './TimePickerWrapper'
+
 interface Props {
   onClose: () => {}
   variantColor: string
@@ -63,7 +65,7 @@ const AddForm = ({ onClose, variantColor }: Props) => {
             <Input ref={register} name='location' />
           </FormControl>
 
-          <Box w='325px' mt={4} mb='1rem'>
+          <TimePickerWrapper w='325px' mt={4} mb='1rem'>
             <FormLabel>Date</FormLabel>
             <DateTimePicker
               color='primary'
@@ -73,7 +75,7 @@ const AddForm = ({ onClose, variantColor }: Props) => {
               value={datetime}
               onChange={(date: any) => setDatetime(date)}
             />
-          </Box>
+          </TimePickerWrapper>
 
           <Button
             onClick={handleSubmit(onSubmit)}
