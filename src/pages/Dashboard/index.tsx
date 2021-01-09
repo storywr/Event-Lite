@@ -3,9 +3,16 @@ import axios from 'axios'
 import { useQuery } from 'react-query'
 import {
   Box,
+  Button,
+  Flex,
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
   SimpleGrid,
   Spinner
 } from '@chakra-ui/react'
+import { AddIcon, HamburgerIcon } from '@chakra-ui/icons'
 
 import Alert from '../../components/Alert'
 
@@ -42,10 +49,32 @@ const Dashboard = () => {
           borderWidth='1px'
           key={event.id}
         >
-          <Box fontWeight='bold'>{event.title}</Box>
-          <Box>{event.location}</Box>
+          <Flex justifyContent='space-between' fontWeight='bold'>
+            <Flex maxW='80%' flexWrap='wrap'>{event.title}</Flex>
+            <Menu>
+              <MenuButton as={Button}>
+                <HamburgerIcon />
+              </MenuButton>
+              <MenuList>
+                <MenuItem>Edit</MenuItem>
+                <MenuItem>Delete</MenuItem>
+              </MenuList>
+            </Menu>
+          </Flex>
+          <Flex mt='0.5rem' maxW='80%' flexWrap='wrap'>{event.location}</Flex>
         </Box>
       ))}
+      <Menu onOpen={() => console.log('open')}>
+        <MenuButton
+          as={Button}
+          p='2rem'
+          minW='sm'
+          minH='sm'
+          borderWidth='1px'
+        >
+          <AddIcon m='auto'/>
+        </MenuButton>
+      </Menu>
     </SimpleGrid>
   )
 }
