@@ -1,11 +1,9 @@
 import React from 'react'
 import {
-  Button,
   Modal,
   ModalOverlay,
   ModalContent,
   ModalHeader,
-  ModalFooter,
   ModalBody,
   ModalCloseButton,
 } from '@chakra-ui/react'
@@ -26,7 +24,7 @@ const EditModal = ({ event, isOpen, onClose }: Props) => (
       <ModalHeader>Edit Event</ModalHeader>
       <ModalCloseButton />
       <ModalBody>
-        <EditForm event={event} variantColor='teal' />
+        <EditForm event={event} onClose={onClose} variantColor='teal' />
       </ModalBody>
     </ModalContent>
   </Modal>

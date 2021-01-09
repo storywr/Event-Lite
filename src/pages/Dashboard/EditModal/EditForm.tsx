@@ -1,83 +1,95 @@
-import React, { useContext } from 'react'
+import React, { useState } from 'react'
 import axios from 'axios'
 import {
   Box,
   Button,
-  Checkbox,
-  Link,
   FormControl,
   FormLabel,
   Input,
-  Stack
 } from '@chakra-ui/react'
 import { useForm } from 'react-hook-form'
-import { Redirect, useHistory } from 'react-router-dom'
+import { useQueryClient, useMutation } from 'react-query'
+import 'date-fns'
+import DateFnsUtils from '@date-io/date-fns'
+import { DateTimePicker, MuiPickersUtilsProvider } from "@material-ui/pickers"
 
-import { AuthContext } from '../../../context'
-import ls from '../../../util/localstore'
-
+import TimePickerWrapper from '../AddModal/TimePickerWrapper'
 import { Event } from '../'
 
 interface Props {
-  variantColor: string
   event: Event
+  onClose: () => {}
+  variantColor: string
 }
 
-interface LoginProps {
-  email: string
-  password: string
+interface EventProps {
+  title: string
+  location: string
 }
 
-const EditForm = ({ variantColor, event }: Props) => {
-  const authContext = useContext(AuthContext)
+const EditForm = ({ event, onClose, variantColor }: Props) => {
   const { register, handleSubmit } = useForm()
-  const history = useHistory()
+  const [datetime, setDatetime] = useState(new Date())
+  const queryClient = useQueryClient()
 
-  const onSubmit = ({ email, password }: LoginProps) => {
-    axios({
-      method: 'POST',
-      url: 'http://localhost:3001/auth/sign_in',
-      data: {
-        email,
-        password
-      }
-    })
-    .then(({ data, headers }) => {
-      const user = JSON.stringify({
-        'access-token': headers['access-token'],
-        'client': headers['client'],
-        'uid': data.data.uid
-      })
+  const mutation = useMutation((newEvent: EventProps) => axios({
+    method: 'PUT',
+    url: `http://localhost:3001/events/${event.id}`,
+    headers: JSON.parse(localStorage.user),
+    data: { event: {
+      title: newEvent.title,
+      location: newEvent.location,
+      start_datetime: datetime
+    }}
+  }),
+  { 
+    onSettled: () => {
+      queryClient.refetchQueries('events')
+    }
+  })
 
-      ls.set('user', user)
-      authContext.login(user)
-      history.push('/')
-    })
+  const onSubmit = ({ title, location }: EventProps) => {
+    mutation.mutate({ title, location })
+    onClose()
   }
 
   return (
-    <Box my={8} textAlign='left'>
-      <form>
-        <FormControl>
-          <FormLabel>Title</FormLabel>
-          <Input ref={register} name='title' defaultValue={event.title} />
-        </FormControl>
+    <MuiPickersUtilsProvider utils={DateFnsUtils}>
+      <Box my={8} textAlign='left'>
+        <form>
+          <FormControl>
+            <FormLabel>Title</FormLabel>
+            <Input ref={register} name='title' defaultValue={event.title} />
+          </FormControl>
 
-        <FormControl mt={4}>
-          <FormLabel>Location</FormLabel>
-          <Input ref={register} name='location' defaultValue={event.location} />
-        </FormControl>
+          <FormControl mt={4}>
+            <FormLabel>Location</FormLabel>
+            <Input ref={register} name='location' defaultValue={event.location} />
+          </FormControl>
 
-        <Button
-          onClick={handleSubmit(onSubmit)}
-          colorScheme={variantColor}
-          width='full'
-          mt={4}
-        >
-          Update Event
-        </Button>
-      </form>
-    </Box>
+          <TimePickerWrapper w='325px' mt={4} mb='1rem'>
+            <FormLabel>Date</FormLabel>
+            <DateTimePicker
+              color='primary'
+              variant='static'
+              label="DateTimePicker"
+              inputVariant="outlined"
+              value={datetime}
+              onChange={(date: any) => setDatetime(date)}
+            />
+          </TimePickerWrapper>
+
+          <Button
+            onClick={handleSubmit(onSubmit)}
+            colorScheme={variantColor}
+            width='full'
+            mt={4}
+          >
+            Add Event
+          </Button>
+        </form>
+      </Box>
+    </MuiPickersUtilsProvider>
   )
 }
 
