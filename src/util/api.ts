@@ -1,3 +1,5 @@
-const api = process.env.REACT_APP_API_URI
+const url = (process.env.NODE_ENV === 'development') 
+    ? 'http://localhost:3001'
+    : 'https://bs-event-app-api.herokuapp.com'
 
-export default api
+export default url
