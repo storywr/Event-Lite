@@ -12,6 +12,7 @@ import { Redirect, useHistory } from 'react-router-dom'
 
 import { AuthContext } from '../../context'
 import ls from '../../util/localstore'
+import api from '../../util/api'
 
 interface Props {
   variantColor: string
@@ -34,7 +35,7 @@ const SignupForm = ({ variantColor }: Props) => {
   const onSubmit = ({ email, password }: LoginProps) => {
     axios({
       method: 'POST',
-      url: 'https://bs-event-app-api.herokuapp.com/auth',
+      url: `${api}/auth`,
       data: {
         email,
         password

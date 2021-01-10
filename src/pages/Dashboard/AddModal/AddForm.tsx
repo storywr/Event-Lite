@@ -15,6 +15,7 @@ import "react-datepicker/dist/react-datepicker.css"
 import DatePicker from "react-datepicker"
 
 import TimePickerWrapper from './TimePickerWrapper'
+import api from '../../../util/api'
 
 interface Props {
   onClose: () => {}
@@ -35,7 +36,7 @@ const AddForm = ({ onClose, variantColor }: Props) => {
 
   const mutation = useMutation(({ imageUrl, description, title, location }: EventProps) => axios({
     method: 'POST',
-    url: 'https://bs-event-app-api.herokuapp.com/events',
+    url: `${api}/events`,
     headers: JSON.parse(localStorage.user),
     data: { event: {
       description,

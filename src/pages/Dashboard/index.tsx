@@ -35,6 +35,7 @@ import Alert from '../../components/Alert'
 import AddModal from './AddModal'
 import DeleteModal from './DeleteModal'
 import EditModal from './EditModal'
+import api from '../../util/api'
 
 const StyledBox = styled(Box)`
   white-space: pre-wrap;
@@ -53,7 +54,7 @@ const useEvents = (search: string) => {
   return useQuery('events', async () => {
     const { data } = await axios({
       method: 'GET',
-      url: `https://bs-event-app-api.herokuapp.com/events?search=${search}`,
+      url: `${api}/events?search=${search}`,
       headers: JSON.parse(localStorage.user)
     })
     return data

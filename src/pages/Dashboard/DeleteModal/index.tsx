@@ -13,6 +13,7 @@ import {
 import { useQueryClient, useMutation } from 'react-query'
 
 import { Event } from '../'
+import api from '../../../util/api'
 
 interface Props {
   event: Event
@@ -25,7 +26,7 @@ const DeleteModal = ({ event, isOpen, onClose }: Props) => {
 
   const mutation = useMutation(() => axios({
     method: 'DELETE',
-    url: `https://bs-event-app-api.herokuapp.com/events/${event.id}`,
+    url: `${api}/events/${event.id}`,
     headers: JSON.parse(localStorage.user),
   }),
   { 
