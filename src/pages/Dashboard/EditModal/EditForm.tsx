@@ -6,6 +6,7 @@ import {
   FormControl,
   FormLabel,
   Input,
+  Textarea
 } from '@chakra-ui/react'
 import { useForm } from 'react-hook-form'
 import { useQueryClient, useMutation } from 'react-query'
@@ -23,6 +24,7 @@ interface Props {
 }
 
 interface EventProps {
+  description: string
   title: string
   location: string
 }
@@ -32,11 +34,12 @@ const EditForm = ({ event, onClose, variantColor }: Props) => {
   const [datetime, setDatetime] = useState(new Date())
   const queryClient = useQueryClient()
 
-  const mutation = useMutation(({ title, location }: EventProps) => axios({
+  const mutation = useMutation(({ description, title, location }: EventProps) => axios({
     method: 'PUT',
     url: `http://localhost:3001/events/${event.id}`,
     headers: JSON.parse(localStorage.user),
     data: { event: {
+      description,
       title,
       location,
       start_datetime: datetime
@@ -48,8 +51,8 @@ const EditForm = ({ event, onClose, variantColor }: Props) => {
     }
   })
 
-  const onSubmit = ({ title, location }: EventProps) => {
-    mutation.mutate({ title, location })
+  const onSubmit = ({ description, title, location }: EventProps) => {
+    mutation.mutate({ description, title, location })
     onClose()
   }
 
@@ -65,6 +68,11 @@ const EditForm = ({ event, onClose, variantColor }: Props) => {
           <FormControl mt={4}>
             <FormLabel>Location</FormLabel>
             <Input ref={register} name='location' defaultValue={event.location} />
+          </FormControl>
+
+          <FormControl mt={4}>
+            <FormLabel>Description</FormLabel>
+            <Textarea ref={register} name='description' defaultValue={event.description} />
           </FormControl>
 
           <TimePickerWrapper w='325px' mt={4} mb='1rem'>

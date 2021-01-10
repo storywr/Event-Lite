@@ -23,6 +23,7 @@ import EditModal from './EditModal'
 
 export interface Event {
   id: string | number
+  description: string
   title: string
   location: string
   start_datetime: string
@@ -82,16 +83,19 @@ const Dashboard = () => {
             boxShadow='md'
             rounded='lg'
             p='1rem'
-            minW='sm'
-            minH='sm'
+            minW='md'
+            minH='md'
+            maxH='md'
+            maxW='md'
             borderWidth='1px'
+            overflow='scroll'
             key={event.id}
           >
             <Flex justifyContent='space-between'>
               <Flex
                 textTransform='uppercase'
                 fontSize='md'
-                fontWeight='semibold'
+                fontWeight='bold'
                 maxW='80%'
                 flexWrap='wrap'
               >
@@ -107,18 +111,21 @@ const Dashboard = () => {
                 </MenuList>
               </Menu>
             </Flex>
-            <Flex mt='0.5rem' maxW='80%' flexWrap='wrap'>{event.location}</Flex>
-            <Flex mt='0.5rem' maxW='80%' flexWrap='wrap'>
+            <Flex fontWeight='semibold' mt='0.5rem' maxW='80%' flexWrap='wrap'>{event.location}</Flex>
+            <Flex fontWeight='semibold' mt='0.5rem' maxW='80%' flexWrap='wrap'>
               {format(new Date(event['start_datetime']), 'M/d/yyyy, h:mm aa')}
             </Flex>
+            <Box mt='1rem' maxW='80%' flexWrap='wrap'>
+              {event.description}
+            </Box>
           </Box>
         ))}
         <Button
           onClick={() => onAddOpen()}
           as={Button}
           p='2rem'
-          minW='sm'
-          minH='sm'
+          minW='md'
+          minH='md'
           borderWidth='1px'
         >
           <AddIcon m='auto'/>
