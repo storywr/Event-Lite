@@ -15,7 +15,13 @@ import {
   Spinner,
   useDisclosure
 } from '@chakra-ui/react'
-import { AddIcon, CalendarIcon, HamburgerIcon, SearchIcon, StarIcon } from '@chakra-ui/icons'
+import { 
+  AddIcon,
+  CalendarIcon,
+  HamburgerIcon,
+  SearchIcon,
+  StarIcon
+} from '@chakra-ui/icons'
 import format from 'date-fns/format'
 import styled from '@emotion/styled'
 
