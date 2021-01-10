@@ -3,12 +3,9 @@ import axios from 'axios'
 import {
   Box,
   Button,
-  Checkbox,
-  Link,
   FormControl,
   FormLabel,
-  Input,
-  Stack
+  Input
 } from '@chakra-ui/react'
 import { useForm } from 'react-hook-form'
 import { Redirect, useHistory } from 'react-router-dom'
