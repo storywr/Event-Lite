@@ -53,7 +53,7 @@ const useEvents = (search: string) => {
   return useQuery('events', async () => {
     const { data } = await axios({
       method: 'GET',
-      url: `http://localhost:3001/events?search=${search}`,
+      url: `https://bs-event-app-api.herokuapp.com/events?search=${search}`,
       headers: JSON.parse(localStorage.user)
     })
     return data

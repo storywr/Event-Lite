@@ -37,7 +37,7 @@ const LoginForm = ({ variantColor }: Props) => {
   const onSubmit = ({ email, password }: LoginProps) => {
     axios({
       method: 'POST',
-      url: 'http://localhost:3001/auth/sign_in',
+      url: 'https://bs-event-app-api.herokuapp.com/auth/sign_in',
       data: {
         email,
         password

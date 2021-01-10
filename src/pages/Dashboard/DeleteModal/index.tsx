@@ -25,7 +25,7 @@ const DeleteModal = ({ event, isOpen, onClose }: Props) => {
 
   const mutation = useMutation(() => axios({
     method: 'DELETE',
-    url: `http://localhost:3001/events/${event.id}`,
+    url: `https://bs-event-app-api.herokuapp.com/events/${event.id}`,
     headers: JSON.parse(localStorage.user),
   }),
   { 

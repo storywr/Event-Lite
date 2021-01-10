@@ -35,7 +35,7 @@ const AddForm = ({ onClose, variantColor }: Props) => {
 
   const mutation = useMutation(({ imageUrl, description, title, location }: EventProps) => axios({
     method: 'POST',
-    url: 'http://localhost:3001/events',
+    url: 'https://bs-event-app-api.herokuapp.com/events',
     headers: JSON.parse(localStorage.user),
     data: { event: {
       description,
