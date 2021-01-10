@@ -61,15 +61,29 @@ const LoginForm = ({ variantColor }: Props) => {
       <form>
         <FormControl>
           <FormLabel>Email Address</FormLabel>
-          <Input ref={register} name='email' type='email' placeholder='Enter your email' />
+          <Input
+            ref={register}
+            name='email'
+            type='email'
+            placeholder='Enter your email'
+          />
         </FormControl>
 
         <FormControl mt={4}>
           <FormLabel>Password</FormLabel>
-          <Input ref={register} name='password' type='password' placeholder='Enter your password' />
+          <Input
+            ref={register}
+            name='password'
+            type='password'
+            placeholder='Enter your password'
+          />
         </FormControl>
 
-        <Stack isInline justifyContent='space-between' mt={4}>
+        <Stack
+          isInline
+          justifyContent='space-between'
+          mt={4}
+        >
           <Box>
             <Checkbox>Remember Me</Checkbox>
           </Box>

@@ -32,13 +32,13 @@ const EditForm = ({ event, onClose, variantColor }: Props) => {
   const [datetime, setDatetime] = useState(new Date())
   const queryClient = useQueryClient()
 
-  const mutation = useMutation((newEvent: EventProps) => axios({
+  const mutation = useMutation(({ title, location }: EventProps) => axios({
     method: 'PUT',
     url: `http://localhost:3001/events/${event.id}`,
     headers: JSON.parse(localStorage.user),
     data: { event: {
-      title: newEvent.title,
-      location: newEvent.location,
+      title,
+      location,
       start_datetime: datetime
     }}
   }),
