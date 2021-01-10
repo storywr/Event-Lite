@@ -11,10 +11,11 @@ import {
 import { useForm } from 'react-hook-form'
 import { useQueryClient, useMutation } from 'react-query'
 import 'date-fns'
-import DateFnsUtils from '@date-io/date-fns'
-import { DateTimePicker, MuiPickersUtilsProvider } from "@material-ui/pickers"
+import "react-datepicker/dist/react-datepicker.css"
 
 import TimePickerWrapper from './TimePickerWrapper'
+
+import DatePicker from "react-datepicker"
 
 interface Props {
   onClose: () => {}
@@ -55,47 +56,44 @@ const AddForm = ({ onClose, variantColor }: Props) => {
   }
 
   return (
-    <MuiPickersUtilsProvider utils={DateFnsUtils}>
-      <Box my={8} textAlign='left'>
-        <form>
-          <FormControl>
-            <FormLabel>Title</FormLabel>
-            <Input ref={register} name='title' />
-          </FormControl>
+    <Box my={8} textAlign='left'>
+      <form>
+        <FormControl>
+          <FormLabel>Title</FormLabel>
+          <Input ref={register} name='title' />
+        </FormControl>
 
-          <FormControl mt={4}>
-            <FormLabel>Location</FormLabel>
-            <Input ref={register} name='location' />
-          </FormControl>
+        <FormControl mt={4}>
+          <FormLabel>Location</FormLabel>
+          <Input ref={register} name='location' />
+        </FormControl>
 
-          <FormControl mt={4}>
-            <FormLabel>Description</FormLabel>
-            <Textarea size='md' ref={register} name='description' />
-          </FormControl>
+        <FormControl mt={4}>
+          <FormLabel>Description</FormLabel>
+          <Textarea size='md' ref={register} name='description' />
+        </FormControl>
 
-          <TimePickerWrapper w='325px' mt={4} mb='1rem'>
-            <FormLabel>Date</FormLabel>
-            <DateTimePicker
-              color='primary'
-              variant='static'
-              label="DateTimePicker"
-              inputVariant="outlined"
-              value={datetime}
-              onChange={(date: any) => setDatetime(date)}
-            />
-          </TimePickerWrapper>
+        <TimePickerWrapper mt={4}>
+          <FormLabel>Date</FormLabel>
+          <DatePicker
+            selected={datetime}
+            onChange={(date: any) => setDatetime(date)}
+            showTimeSelect
+            dateFormat="MMMM d, yyyy h:mm aa"
+            inline
+          />
+        </TimePickerWrapper>
 
-          <Button
-            onClick={handleSubmit(onSubmit)}
-            colorScheme={variantColor}
-            width='full'
-            mt={4}
-          >
-            Add Event
-          </Button>
-        </form>
-      </Box>
-    </MuiPickersUtilsProvider>
+        <Button
+          onClick={handleSubmit(onSubmit)}
+          colorScheme={variantColor}
+          width='full'
+          mt={4}
+        >
+          Add Event
+        </Button>
+      </form>
+    </Box>
   )
 }
 

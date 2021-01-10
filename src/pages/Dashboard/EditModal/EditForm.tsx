@@ -11,11 +11,14 @@ import {
 import { useForm } from 'react-hook-form'
 import { useQueryClient, useMutation } from 'react-query'
 import 'date-fns'
-import DateFnsUtils from '@date-io/date-fns'
-import { DateTimePicker, MuiPickersUtilsProvider } from "@material-ui/pickers"
+import "react-datepicker/dist/react-datepicker.css"
+import styled from '@emotion/styled'
+
+import DatePicker from "react-datepicker"
+
+import { Event } from '../'
 
 import TimePickerWrapper from '../AddModal/TimePickerWrapper'
-import { Event } from '../'
 
 interface Props {
   event: Event
@@ -31,7 +34,7 @@ interface EventProps {
 
 const EditForm = ({ event, onClose, variantColor }: Props) => {
   const { register, handleSubmit } = useForm()
-  const [datetime, setDatetime] = useState(event['start_datetime'])
+  const [datetime, setDatetime] = useState<any>(new Date(event['start_datetime']))
   const queryClient = useQueryClient()
 
   const mutation = useMutation(({ description, title, location }: EventProps) => axios({
@@ -57,47 +60,44 @@ const EditForm = ({ event, onClose, variantColor }: Props) => {
   }
 
   return (
-    <MuiPickersUtilsProvider utils={DateFnsUtils}>
-      <Box my={8} textAlign='left'>
-        <form>
-          <FormControl>
-            <FormLabel>Title</FormLabel>
-            <Input ref={register} name='title' defaultValue={event.title} />
-          </FormControl>
+    <Box my={8} textAlign='left'>
+      <form>
+        <FormControl>
+          <FormLabel>Title</FormLabel>
+          <Input ref={register} name='title' defaultValue={event.title} />
+        </FormControl>
 
-          <FormControl mt={4}>
-            <FormLabel>Location</FormLabel>
-            <Input ref={register} name='location' defaultValue={event.location} />
-          </FormControl>
+        <FormControl mt={4}>
+          <FormLabel>Location</FormLabel>
+          <Input ref={register} name='location' defaultValue={event.location} />
+        </FormControl>
 
-          <FormControl mt={4}>
-            <FormLabel>Description</FormLabel>
-            <Textarea minH='200px' size='md' ref={register} name='description' defaultValue={event.description} />
-          </FormControl>
+        <FormControl mt={4}>
+          <FormLabel>Description</FormLabel>
+          <Textarea minH='200px' size='md' ref={register} name='description' defaultValue={event.description} />
+        </FormControl>
 
-          <TimePickerWrapper w='325px' mt={4} mb='1rem'>
-            <FormLabel>Date</FormLabel>
-            <DateTimePicker
-              color='primary'
-              variant='static'
-              label="DateTimePicker"
-              inputVariant="outlined"
-              value={datetime}
-              onChange={(date: any) => setDatetime(date)}
-            />
-          </TimePickerWrapper>
+        <TimePickerWrapper mt={4}>
+          <FormLabel>Date</FormLabel>
+          <DatePicker
+            selected={datetime}
+            onChange={(date: any) => setDatetime(date)}
+            showTimeSelect
+            dateFormat="MMMM d, yyyy h:mm aa"
+            inline
+          />
+        </TimePickerWrapper>
 
-          <Button
-            onClick={handleSubmit(onSubmit)}
-            colorScheme={variantColor}
-            width='full'
-            mt={4}
-          >
-            Update Event
-          </Button>
-        </form>
-      </Box>
-    </MuiPickersUtilsProvider>
+        <Button
+          onClick={handleSubmit(onSubmit)}
+          colorScheme={variantColor}
+          width='full'
+          mt={4}
+        >
+          Update Event
+        </Button>
+      </form>
+    </Box>
   )
 }
 

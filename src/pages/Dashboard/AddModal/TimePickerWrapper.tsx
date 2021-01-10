@@ -2,32 +2,11 @@ import styled from '@emotion/styled'
 import { Box } from '@chakra-ui/react'
 
 const StyledBox = styled(Box)`
-  .MuiPickersToolbar-toolbar {
+  .react-datepicker__time-container .react-datepicker__time .react-datepicker__time-box ul.react-datepicker__time-list li.react-datepicker__time-list-item--selected {
     background-color: #319795;
   }
-  .MuiPickerDTTabs-tabs {
+  .react-datepicker__day--selected, .react-datepicker__day--in-selecting-range, .react-datepicker__day--in-range, .react-datepicker__month-text--selected, .react-datepicker__month-text--in-selecting-range, .react-datepicker__month-text--in-range, .react-datepicker__quarter-text--selected, .react-datepicker__quarter-text--in-selecting-range, .react-datepicker__quarter-text--in-range, .react-datepicker__year-text--selected, .react-datepicker__year-text--in-selecting-range, .react-datepicker__year-text--in-range {
     background-color: #319795;
-  }
-  .MuiPickersDay-daySelected {
-    background-color: #319795;
-    &:hover {
-      background-color: #319795;
-    }
-  }
-  .MuiPickersClock-pin {
-    background-color: #319795;
-  }
-  .MuiPickersClockPointer-pointer {
-    background-color: #319795;
-  }
-  .MuiPickersClockPointer-noPoint {
-    background-color: #319795;
-  }
-  .MuiPickersClockPointer-thumb {
-    border: 14px solid #319795;
-  }
-  .PrivateTabIndicator-colorSecondary-3 {
-    background-color: white;
   }
 `
 
