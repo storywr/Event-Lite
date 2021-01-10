@@ -176,7 +176,6 @@ const Dashboard = () => {
             </Flex>
             <StyledBox
               mt='1rem'
-              maxW='80%'
               flexWrap='wrap'
             >
               {event.description}
