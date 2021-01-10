@@ -110,13 +110,16 @@ const Dashboard = () => {
             value={search}
             onChange={e => setSearch(e.target.value)}
           />
-          <InputRightElement>
-            <IconButton
-              aria-label="Clear search"
-              icon={<CloseIcon />}
-              onClick={() => setSearch('')}
-            />
-          </InputRightElement>
+          {search &&
+            <InputRightElement>
+              <IconButton
+                variant='ghost'
+                aria-label="Clear search"
+                icon={<CloseIcon />}
+                onClick={() => setSearch('')}
+              />
+            </InputRightElement>
+          }
         </InputGroup>
       </Box>
       <SimpleGrid mb='3rem' columns={3} spacing={35}>
