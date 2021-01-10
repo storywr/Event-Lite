@@ -122,11 +122,29 @@ const Dashboard = () => {
                 </MenuList>
               </Menu>
             </Flex>
-            <Flex alignItems='center' fontWeight='semibold' mt='0.5rem' maxW='80%' flexWrap='wrap'><StarIcon mr='0.5rem'/> {event.location}</Flex>
-            <Flex alignItems='center' fontWeight='semibold' mt='0.5rem' maxW='80%' flexWrap='wrap'>
+            <Flex
+              alignItems='center'
+              fontWeight='semibold'
+              mt='0.5rem'
+              maxW='80%'
+              flexWrap='wrap'
+            >
+              <StarIcon mr='0.5rem'/> {event.location}
+            </Flex>
+            <Flex
+              alignItems='center'
+              fontWeight='semibold'
+              mt='0.5rem'
+              maxW='80%' 
+              flexWrap='wrap'
+            >
               <CalendarIcon mr='0.5rem' />{format(new Date(event['start_datetime']), 'M/d/yyyy, h:mm aa')}
             </Flex>
-            <StyledBox mt='1rem' maxW='80%' flexWrap='wrap'>
+            <StyledBox
+              mt='1rem'
+              maxW='80%'
+              flexWrap='wrap'
+            >
               {event.description}
             </StyledBox>
           </Box>
