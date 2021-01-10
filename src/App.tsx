@@ -14,6 +14,7 @@ import Home from './pages'
 import { AuthContext } from './context'
 import ls from './util/localstore'
 import Authentication from './pages/Authentication'
+import Signup from './pages/Signup'
 
 const queryClient = new QueryClient()
 
@@ -40,11 +41,14 @@ const App = () => {
         <QueryClientProvider client={queryClient}>
           <Router>
             <Switch>
-              <Route exact path='/login'>
-                <Authentication />
-              </Route>
-              <Route path='/'>
+              <Route exact path='/'>
                 <Home />
+              </Route>
+              <Route path='/signup'>
+                <Signup />
+              </Route>
+              <Route path='/login'>
+                <Authentication />
               </Route>
             </Switch>
           </Router>

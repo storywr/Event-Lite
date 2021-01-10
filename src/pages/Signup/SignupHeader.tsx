@@ -7,13 +7,13 @@ import {
 } from '@chakra-ui/react'
 import { Link as ReactRouterLink } from 'react-router-dom'
 
-const LoginHeader = ({ variantColor }: any) => (
+const SignupHeader = ({ variantColor }: any) => (
   <Box textAlign='center'>
-    <Heading>Sign Into Your Account</Heading>
+    <Heading>Sign Up For Account</Heading>
     <Text>
-      Or <Link as={ReactRouterLink} to='/signup' color={`${variantColor}.500`}>Sign Up</Link>
+      Or <Link as={ReactRouterLink} to='/login' color={`${variantColor}.500`}>Login</Link>
     </Text>
   </Box>
 )
 
-export default LoginHeader
+export default SignupHeader
