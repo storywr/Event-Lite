@@ -12,10 +12,9 @@ import { useForm } from 'react-hook-form'
 import { useQueryClient, useMutation } from 'react-query'
 import 'date-fns'
 import "react-datepicker/dist/react-datepicker.css"
+import DatePicker from "react-datepicker"
 
 import TimePickerWrapper from './TimePickerWrapper'
-
-import DatePicker from "react-datepicker"
 
 interface Props {
   onClose: () => {}
