@@ -5,6 +5,8 @@ import {
   Box,
   Button,
   Flex,
+  FormLabel,
+  Input,
   Menu,
   MenuButton,
   MenuList,
@@ -13,13 +15,18 @@ import {
   Spinner,
   useDisclosure
 } from '@chakra-ui/react'
-import { AddIcon, HamburgerIcon } from '@chakra-ui/icons'
+import { AddIcon, CalendarIcon, HamburgerIcon, SearchIcon, StarIcon } from '@chakra-ui/icons'
 import format from 'date-fns/format'
+import styled from '@emotion/styled'
 
 import Alert from '../../components/Alert'
 import AddModal from './AddModal'
 import DeleteModal from './DeleteModal'
 import EditModal from './EditModal'
+
+const StyledBox = styled(Box)`
+  white-space: pre-wrap;
+`
 
 export interface Event {
   id: string | number
@@ -62,7 +69,7 @@ const Dashboard = () => {
   if (error) return <Alert />
 
   return (
-    <>
+    <Box display='block'>
       <DeleteModal
         event={selectedEvent}
         isOpen={isDeleteOpen}
@@ -77,16 +84,20 @@ const Dashboard = () => {
         isOpen={isAddOpen}
         onClose={onAddClose}
       />
-      <SimpleGrid mb='2rem' columns={3} spacing={35}>
+      <Box mb='2rem' w='480px'>
+        <FormLabel><SearchIcon /> Search for Event</FormLabel>
+        <Input name='title' placeholder='Search' />
+      </Box>
+      <SimpleGrid mb='3rem' columns={3} spacing={35}>
         {data.map((event: Event) => (
           <Box
             boxShadow='md'
             rounded='lg'
             p='1rem'
-            minW='md'
-            minH='md'
-            maxH='md'
-            maxW='md'
+            minW='480px'
+            minH='480px'
+            maxH='480px'
+            maxW='480px'
             borderWidth='1px'
             overflow='scroll'
             key={event.id}
@@ -111,27 +122,27 @@ const Dashboard = () => {
                 </MenuList>
               </Menu>
             </Flex>
-            <Flex fontWeight='semibold' mt='0.5rem' maxW='80%' flexWrap='wrap'>{event.location}</Flex>
-            <Flex fontWeight='semibold' mt='0.5rem' maxW='80%' flexWrap='wrap'>
-              {format(new Date(event['start_datetime']), 'M/d/yyyy, h:mm aa')}
+            <Flex alignItems='center' fontWeight='semibold' mt='0.5rem' maxW='80%' flexWrap='wrap'><StarIcon mr='0.5rem'/> {event.location}</Flex>
+            <Flex alignItems='center' fontWeight='semibold' mt='0.5rem' maxW='80%' flexWrap='wrap'>
+              <CalendarIcon mr='0.5rem' />{format(new Date(event['start_datetime']), 'M/d/yyyy, h:mm aa')}
             </Flex>
-            <Box mt='1rem' maxW='80%' flexWrap='wrap'>
+            <StyledBox mt='1rem' maxW='80%' flexWrap='wrap'>
               {event.description}
-            </Box>
+            </StyledBox>
           </Box>
         ))}
         <Button
           onClick={() => onAddOpen()}
           as={Button}
           p='2rem'
-          minW='md'
-          minH='md'
+          minW='480px'
+          minH='480px'
           borderWidth='1px'
         >
           <AddIcon m='auto'/>
         </Button>
       </SimpleGrid>
-    </>
+    </Box>
   )
 }
 

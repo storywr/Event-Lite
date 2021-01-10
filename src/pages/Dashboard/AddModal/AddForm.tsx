@@ -70,7 +70,7 @@ const AddForm = ({ onClose, variantColor }: Props) => {
 
           <FormControl mt={4}>
             <FormLabel>Description</FormLabel>
-            <Textarea ref={register} name='description' />
+            <Textarea size='md' ref={register} name='description' />
           </FormControl>
 
           <TimePickerWrapper w='325px' mt={4} mb='1rem'>

@@ -18,7 +18,7 @@ const Home = () => {
       <Switch>
         <>
           <Navbar />
-          <Flex ml='3rem' mt='2rem'>
+          <Flex ml='3rem'>
             <Route exact path='/'>
               <Dashboard />
             </Route>

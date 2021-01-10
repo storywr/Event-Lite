@@ -31,7 +31,7 @@ interface EventProps {
 
 const EditForm = ({ event, onClose, variantColor }: Props) => {
   const { register, handleSubmit } = useForm()
-  const [datetime, setDatetime] = useState(new Date())
+  const [datetime, setDatetime] = useState(event['start_datetime'])
   const queryClient = useQueryClient()
 
   const mutation = useMutation(({ description, title, location }: EventProps) => axios({
@@ -72,7 +72,7 @@ const EditForm = ({ event, onClose, variantColor }: Props) => {
 
           <FormControl mt={4}>
             <FormLabel>Description</FormLabel>
-            <Textarea ref={register} name='description' defaultValue={event.description} />
+            <Textarea minH='200px' size='md' ref={register} name='description' defaultValue={event.description} />
           </FormControl>
 
           <TimePickerWrapper w='325px' mt={4} mb='1rem'>
@@ -93,7 +93,7 @@ const EditForm = ({ event, onClose, variantColor }: Props) => {
             width='full'
             mt={4}
           >
-            Add Event
+            Update Event
           </Button>
         </form>
       </Box>

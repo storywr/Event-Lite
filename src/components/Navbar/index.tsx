@@ -18,7 +18,8 @@ const Navbar = () => {
       as='nav'
       align='center'
       justify='space-between'
-      p='2rem'
+      px='2rem'
+      py='2rem'
     >
       <Flex
         align='center'
