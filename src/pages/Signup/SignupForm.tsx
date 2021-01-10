@@ -82,6 +82,7 @@ const SignupForm = ({ variantColor }: Props) => {
           colorScheme={variantColor}
           width='full'
           mt={4}
+          type='submit'
         >
           Sign Up
         </Button>

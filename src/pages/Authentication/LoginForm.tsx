@@ -98,6 +98,7 @@ const LoginForm = ({ variantColor }: Props) => {
           colorScheme={variantColor}
           width='full'
           mt={4}
+          type='submit'
         >
           Sign In
         </Button>
