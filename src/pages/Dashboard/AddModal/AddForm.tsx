@@ -25,6 +25,7 @@ interface EventProps {
   title: string
   location: string
   description: string
+  imageUrl: string
 }
 
 const AddForm = ({ onClose, variantColor }: Props) => {
@@ -32,7 +33,7 @@ const AddForm = ({ onClose, variantColor }: Props) => {
   const [datetime, setDatetime] = useState(new Date())
   const queryClient = useQueryClient()
 
-  const mutation = useMutation(({ description, title, location }: EventProps) => axios({
+  const mutation = useMutation(({ imageUrl, description, title, location }: EventProps) => axios({
     method: 'POST',
     url: 'http://localhost:3001/events',
     headers: JSON.parse(localStorage.user),
@@ -40,7 +41,8 @@ const AddForm = ({ onClose, variantColor }: Props) => {
       description,
       title,
       location,
-      start_datetime: datetime
+      start_datetime: datetime,
+      image_url: imageUrl
     }}
   }),
   { 
@@ -49,8 +51,8 @@ const AddForm = ({ onClose, variantColor }: Props) => {
     }
   })
 
-  const onSubmit = ({ description, title, location }: EventProps) => {
-    mutation.mutate({ description, title, location })
+  const onSubmit = ({ imageUrl, description, title, location }: EventProps) => {
+    mutation.mutate({ imageUrl, description, title, location })
     onClose()
   }
 
@@ -70,6 +72,11 @@ const AddForm = ({ onClose, variantColor }: Props) => {
         <FormControl mt={4}>
           <FormLabel>Description</FormLabel>
           <Textarea size='md' ref={register} name='description' />
+        </FormControl>
+
+        <FormControl mt={4}>
+          <FormLabel>Image Url</FormLabel>
+          <Input ref={register} name='imageUrl' />
         </FormControl>
 
         <TimePickerWrapper mt={4}>

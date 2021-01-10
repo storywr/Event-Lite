@@ -7,6 +7,7 @@ import {
   Flex,
   FormLabel,
   IconButton,
+  Image,
   Input,
   InputGroup,
   Menu,
@@ -45,6 +46,7 @@ export interface Event {
   title: string
   location: string
   start_datetime: string
+  image_url: string
 }
 
 const useEvents = (search: string) => {
@@ -174,6 +176,7 @@ const Dashboard = () => {
             >
               <CalendarIcon mr='0.5rem' />{format(new Date(event['start_datetime']), 'M/d/yyyy, h:mm aa')}
             </Flex>
+            {event['image_url'] && <Image mt='1rem' src={event['image_url']} />}
             <StyledBox
               mt='1rem'
               flexWrap='wrap'
