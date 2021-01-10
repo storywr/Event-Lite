@@ -128,6 +128,9 @@ const Dashboard = () => {
       <SimpleGrid mb='3rem' columns={3} spacing={35}>
         {data.map((event: Event) => (
           <Box
+            _hover={{
+              boxShadow: '0 8px 12px -1px rgba(0, 0, 0, 0.2), 0 4px 8px -1px rgba(0, 0, 0, 0.12)'
+            }}
             boxShadow='md'
             rounded='lg'
             p='1rem'
