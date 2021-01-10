@@ -6,18 +6,22 @@ import {
   Button,
   Flex,
   FormLabel,
+  IconButton,
   Input,
+  InputGroup,
   Menu,
   MenuButton,
   MenuList,
   MenuItem,
   SimpleGrid,
   Spinner,
-  useDisclosure
+  useDisclosure,
+  InputRightElement
 } from '@chakra-ui/react'
 import { 
   AddIcon,
   CalendarIcon,
+  CloseIcon,
   HamburgerIcon,
   SearchIcon,
   StarIcon
@@ -57,7 +61,7 @@ const useEvents = (search: string) => {
 const Dashboard = () => {
   const [search, setSearch] = useState('')
   const [selectedEvent, setEvent] = useState<any>(null)
-  const debouncedValue = useDebouncedValue(search, 1000)
+  const debouncedValue = useDebouncedValue(search, 500)
   const { data, error, isFetching, refetch } = useEvents(debouncedValue)
 
   useEffect(() => {
@@ -99,12 +103,21 @@ const Dashboard = () => {
       />
       <Box mb='2rem' w='480px'>
         <FormLabel><SearchIcon /> Search for Event</FormLabel>
-        <Input
-          name='title'
-          placeholder='Search'
-          value={search}
-          onChange={e => setSearch(e.target.value)}
-        />
+        <InputGroup>
+          <Input
+            name='title'
+            placeholder='Search'
+            value={search}
+            onChange={e => setSearch(e.target.value)}
+          />
+          <InputRightElement>
+            <IconButton
+              aria-label="Clear search"
+              icon={<CloseIcon />}
+              onClick={() => setSearch('')}
+            />
+          </InputRightElement>
+        </InputGroup>
       </Box>
       <SimpleGrid mb='3rem' columns={3} spacing={35}>
         {data.map((event: Event) => (
