@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { useQuery } from 'react-query'
 import {
@@ -24,6 +24,7 @@ import {
 } from '@chakra-ui/icons'
 import format from 'date-fns/format'
 import styled from '@emotion/styled'
+import useDebouncedValue from '../../hooks/useDebouncedValue'
 
 import Alert from '../../components/Alert'
 import AddModal from './AddModal'
@@ -42,11 +43,11 @@ export interface Event {
   start_datetime: string
 }
 
-const useEvents = () => {
+const useEvents = (search: string) => {
   return useQuery('events', async () => {
     const { data } = await axios({
       method: 'GET',
-      url: 'http://localhost:3001/events',
+      url: `http://localhost:3001/events?search=${search}`,
       headers: JSON.parse(localStorage.user)
     })
     return data
@@ -54,8 +55,14 @@ const useEvents = () => {
 }
 
 const Dashboard = () => {
+  const [search, setSearch] = useState('')
   const [selectedEvent, setEvent] = useState<any>(null)
-  const { data, error, isFetching } = useEvents()
+  const debouncedValue = useDebouncedValue(search, 1000)
+  const { data, error, isFetching, refetch } = useEvents(debouncedValue)
+
+  useEffect(() => {
+    refetch()
+  }, [debouncedValue])
 
   const { isOpen: isDeleteOpen, onOpen: onDeleteOpen, onClose: onDeleteClose } = useDisclosure()
   const { isOpen: isEditOpen, onOpen: onEditOpen, onClose: onEditClose } = useDisclosure()
@@ -92,7 +99,12 @@ const Dashboard = () => {
       />
       <Box mb='2rem' w='480px'>
         <FormLabel><SearchIcon /> Search for Event</FormLabel>
-        <Input name='title' placeholder='Search' />
+        <Input
+          name='title'
+          placeholder='Search'
+          value={search}
+          onChange={e => setSearch(e.target.value)}
+        />
       </Box>
       <SimpleGrid mb='3rem' columns={3} spacing={35}>
         {data.map((event: Event) => (
