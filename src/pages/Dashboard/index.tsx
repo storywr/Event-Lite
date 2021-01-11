@@ -139,7 +139,7 @@ const Dashboard = () => {
             maxH='480px'
             maxW='480px'
             borderWidth='1px'
-            overflow='scroll'
+            overflowY='auto'
             key={event.id}
           >
             <Flex justifyContent='space-between'>
