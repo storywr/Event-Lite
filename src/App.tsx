@@ -41,14 +41,14 @@ const App = () => {
         <QueryClientProvider client={queryClient}>
           <Router>
             <Switch>
-              <Route exact path='/'>
-                <Home />
-              </Route>
-              <Route path='/signup'>
+              <Route exact path='/signup'>
                 <Signup />
               </Route>
-              <Route path='/login'>
+              <Route exact path='/login'>
                 <Authentication />
+              </Route>
+              <Route path='/'>
+                <Home />
               </Route>
             </Switch>
           </Router>

@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import axios from 'axios'
-import { useQuery } from 'react-query'
 import {
   Box,
   Button,
   Flex,
   FormLabel,
+  Heading,
   IconButton,
   Image,
   Input,
@@ -29,13 +28,14 @@ import {
 } from '@chakra-ui/icons'
 import format from 'date-fns/format'
 import styled from '@emotion/styled'
+import { useHistory } from 'react-router-dom'
 
 import useDebouncedValue from '../../hooks/useDebouncedValue'
+import useEvents from '../../hooks/useEvents'
 import Alert from '../../components/Alert'
 import AddModal from './AddModal'
 import DeleteModal from './DeleteModal'
 import EditModal from './EditModal'
-import api from '../../util/api'
 
 const StyledBox = styled(Box)`
   white-space: pre-wrap;
@@ -50,22 +50,12 @@ export interface Event {
   image_url: string
 }
 
-const useEvents = (search: string) => {
-  return useQuery('events', async () => {
-    const { data } = await axios({
-      method: 'GET',
-      url: `${api}/events?search=${search}`,
-      headers: JSON.parse(localStorage.user)
-    })
-    return data
-  })
-}
-
 const Dashboard = () => {
   const [search, setSearch] = useState('')
   const [selectedEvent, setEvent] = useState<any>(null)
   const debouncedValue = useDebouncedValue(search, 500)
   const { data, error, isFetching, refetch } = useEvents(debouncedValue)
+  const history = useHistory()
 
   useEffect(() => {
     refetch()
@@ -131,6 +121,7 @@ const Dashboard = () => {
             _hover={{
               boxShadow: '0 8px 12px -1px rgba(0, 0, 0, 0.2), 0 4px 8px -1px rgba(0, 0, 0, 0.12)'
             }}
+            cursor='pointer'
             boxShadow='md'
             rounded='lg'
             p='1rem'
@@ -139,8 +130,9 @@ const Dashboard = () => {
             maxH='480px'
             maxW='480px'
             borderWidth='1px'
-            overflowY='auto'
+            overflowY='hidden'
             key={event.id}
+            onClick={() => history.push(`/events/${event.id}`)}
           >
             <Flex justifyContent='space-between'>
               <Flex
@@ -185,6 +177,9 @@ const Dashboard = () => {
               mt='1rem'
               flexWrap='wrap'
             >
+              <Heading as='h5' size='sm'>
+                About
+              </Heading>
               {event.description}
             </StyledBox>
           </Box>

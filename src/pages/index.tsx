@@ -1,30 +1,26 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import { Route, Switch, Redirect } from 'react-router-dom'
 import { Flex } from '@chakra-ui/react'
 
 import Dashboard from './Dashboard'
-import { AuthContext } from '../context'
 import Navbar from '../components/Navbar'
+import Event from '../pages/Event'
+import ls from '../util/localstore'
 
 const Home = () => {
-  const authContext = useContext(AuthContext)
-
-  if (!authContext.user) {
+  if (!ls.get('user')) {
     return <Redirect to={{ pathname: '/login' }} />
   }
 
   return (
     <Flex minH='100vh' flexDirection='column'>
-      <Switch>
-        <>
-          <Navbar />
-          <Flex ml='3rem'>
-            <Route exact path='/'>
-              <Dashboard />
-            </Route>
-          </Flex>
-        </>
-      </Switch>
+      <Navbar />
+      <Flex ml='3rem'>
+        <Switch>
+          <Route exact path='/' component={Dashboard} />
+          <Route path='/events/:id' component={Event} />
+        </Switch>
+      </Flex>
     </Flex>
   )
 }
