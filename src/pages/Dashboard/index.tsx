@@ -145,12 +145,30 @@ const Dashboard = () => {
                 {event.title}
               </Flex>
               <Menu>
-                <MenuButton variant='ghost' as={Button}>
+                <MenuButton
+                  onClick={e => e.stopPropagation()}
+                  variant='ghost'
+                  as={Button}
+                >
                   <HamburgerIcon />
                 </MenuButton>
                 <MenuList>
-                  <MenuItem onClick={() => handleEditClick(event)}>Edit</MenuItem>
-                  <MenuItem onClick={() => handleDeleteClick(event)}>Delete</MenuItem>
+                  <MenuItem
+                    onClick={e => {
+                      e.stopPropagation()
+                      handleEditClick(event)}
+                    }
+                  >
+                    Edit
+                  </MenuItem>
+                  <MenuItem
+                    onClick={e => {
+                      e.stopPropagation()
+                      handleDeleteClick(event)}
+                    }
+                  >
+                    Delete
+                  </MenuItem>
                 </MenuList>
               </Menu>
             </Flex>
