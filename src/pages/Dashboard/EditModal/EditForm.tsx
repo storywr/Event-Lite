@@ -50,7 +50,7 @@ const EditForm = ({ event, onClose, variantColor }: Props) => {
   }),
   { 
     onSuccess: ({ data }: any) => {
-      queryClient.setQueryData('events', (events: any) => events.map((event: Event) => event.id === data.id ? data : event))
+      queryClient.setQueryData('events', (oldEvents: any) => oldEvents.map((oldEvent: Event) => oldEvent.id === data.id ? data : oldEvent))
       queryClient.setQueryData('event', data)
     }
   })

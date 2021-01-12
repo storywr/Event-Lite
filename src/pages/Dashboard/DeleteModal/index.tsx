@@ -31,7 +31,7 @@ const DeleteModal = ({ event, isOpen, onClose }: Props) => {
   }),
   { 
     onSettled: () => {
-      queryClient.refetchQueries('events')
+      queryClient.setQueryData('events', (oldEvents: any) => oldEvents.filter((oldEvent: Event) => oldEvent.id !== event.id))
     }
   })
 
