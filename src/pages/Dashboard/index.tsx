@@ -27,7 +27,6 @@ import {
   StarIcon
 } from '@chakra-ui/icons'
 import format from 'date-fns/format'
-import styled from '@emotion/styled'
 import { useHistory } from 'react-router-dom'
 
 import useDebouncedValue from '../../hooks/useDebouncedValue'
@@ -36,10 +35,6 @@ import Alert from '../../components/Alert'
 import AddModal from './AddModal'
 import DeleteModal from './DeleteModal'
 import EditModal from './EditModal'
-
-const StyledBox = styled(Box)`
-  white-space: pre-wrap;
-`
 
 export interface Event {
   id: string | number
@@ -206,17 +201,14 @@ const Dashboard = () => {
               {format(new Date(event['start_datetime']), 'M/d/yyyy, h:mm aa')}
             </Flex>
             {event['image_url'] &&
-              <Image mt='1rem' src={event['image_url']}
-            />}
-            <StyledBox
-              mt='1rem'
-              flexWrap='wrap'
-            >
+              <Image m='auto' minH='225px' maxH='225px' mt='1rem' src={event['image_url']}/>
+            }
+            <Box mt='1rem'>
               <Heading as='h5' size='sm'>
                 About
               </Heading>
               {event.description}
-            </StyledBox>
+            </Box>
           </Box>
         ))}
         <Button
