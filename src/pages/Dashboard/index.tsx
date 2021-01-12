@@ -201,7 +201,13 @@ const Dashboard = () => {
               {format(new Date(event['start_datetime']), 'M/d/yyyy, h:mm aa')}
             </Flex>
             {event['image_url'] &&
-              <Image m='auto' minH='225px' maxH='225px' mt='1rem' src={event['image_url']}/>
+              <Image
+                m='auto'
+                minH='225px'
+                maxH='225px'
+                mt='1rem'
+                src={event['image_url']}
+              />
             }
             <Box mt='1rem'>
               <Heading as='h5' size='sm'>
