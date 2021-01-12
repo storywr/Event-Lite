@@ -58,6 +58,7 @@ const Event = () => {
         event={event}
         isOpen={isDeleteOpen}
         onClose={onDeleteClose}
+        isViewing
       />
       <EditModal
         event={event}

@@ -1,5 +1,6 @@
 import React from 'react'
 import axios from 'axios'
+import { useHistory } from 'react-router-dom'
 import {
   Button,
   Modal,
@@ -17,12 +18,14 @@ import api from '../../../util/api'
 
 interface Props {
   event: Event
+  isViewing?: boolean
   isOpen: any
   onClose: any
 }
 
-const DeleteModal = ({ event, isOpen, onClose }: Props) => {
+const DeleteModal = ({ isViewing, event, isOpen, onClose }: Props) => {
   const queryClient = useQueryClient()
+  const history = useHistory()
 
   const mutation = useMutation(() => axios({
     method: 'DELETE',
@@ -32,6 +35,7 @@ const DeleteModal = ({ event, isOpen, onClose }: Props) => {
   { 
     onSettled: () => {
       queryClient.setQueryData('events', (oldEvents: any) => oldEvents.filter((oldEvent: Event) => oldEvent.id !== event.id))
+      isViewing && history.push('/')
     }
   })
 
