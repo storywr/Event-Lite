@@ -49,8 +49,9 @@ const EditForm = ({ event, onClose, variantColor }: Props) => {
     }}
   }),
   { 
-    onSettled: () => {
-      queryClient.refetchQueries('events')
+    onSuccess: ({ data }: any) => {
+      queryClient.setQueryData('events', (events: any) => events.map((event: Event) => event.id === data.id ? data : event))
+      queryClient.setQueryData('event', data)
     }
   })
 

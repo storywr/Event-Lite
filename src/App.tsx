@@ -10,7 +10,7 @@ import {
   QueryClientProvider
 } from 'react-query'
 
-import Home from './pages'
+import Home from './pages/Home'
 import { AuthContext } from './context'
 import ls from './util/localstore'
 import Authentication from './pages/Authentication'

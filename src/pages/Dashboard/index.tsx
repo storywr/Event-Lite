@@ -61,9 +61,23 @@ const Dashboard = () => {
     refetch()
   }, [debouncedValue])
 
-  const { isOpen: isDeleteOpen, onOpen: onDeleteOpen, onClose: onDeleteClose } = useDisclosure()
-  const { isOpen: isEditOpen, onOpen: onEditOpen, onClose: onEditClose } = useDisclosure()
-  const { isOpen: isAddOpen, onOpen: onAddOpen, onClose: onAddClose } = useDisclosure()
+  const {
+    isOpen: isDeleteOpen,
+    onOpen: onDeleteOpen,
+    onClose: onDeleteClose
+  } = useDisclosure()
+
+  const {
+    isOpen: isEditOpen,
+    onOpen: onEditOpen,
+    onClose: onEditClose
+  } = useDisclosure()
+
+  const {
+    isOpen: isAddOpen,
+    onOpen: onAddOpen,
+    onClose: onAddClose
+  } = useDisclosure()
 
   const handleDeleteClick = (event: Event) => {
     setEvent(event)
@@ -94,7 +108,7 @@ const Dashboard = () => {
         isOpen={isAddOpen}
         onClose={onAddClose}
       />
-      <Box mb='2rem' w='480px'>
+      <Box mb='2rem' w='500px'>
         <FormLabel><SearchIcon /> Search for Event</FormLabel>
         <InputGroup>
           <Input
@@ -119,16 +133,16 @@ const Dashboard = () => {
         {data.map((event: Event) => (
           <Box
             _hover={{
-              boxShadow: '0 8px 12px -1px rgba(0, 0, 0, 0.2), 0 4px 8px -1px rgba(0, 0, 0, 0.12)'
+              boxShadow: '0 8px 12px -1px rgba(0, 0, 0, 0.2), 0 4px 8px -1px rgba(0, 0, 0, 0.12)',
             }}
             cursor='pointer'
             boxShadow='md'
             rounded='lg'
             p='1rem'
-            minW='480px'
-            minH='480px'
-            maxH='480px'
-            maxW='480px'
+            minW='500px'
+            minH='500px'
+            maxH='500px'
+            maxW='500px'
             borderWidth='1px'
             overflowY='hidden'
             key={event.id}
@@ -188,9 +202,12 @@ const Dashboard = () => {
               maxW='80%' 
               flexWrap='wrap'
             >
-              <CalendarIcon mr='0.5rem' />{format(new Date(event['start_datetime']), 'M/d/yyyy, h:mm aa')}
+              <CalendarIcon mr='0.5rem' />
+              {format(new Date(event['start_datetime']), 'M/d/yyyy, h:mm aa')}
             </Flex>
-            {event['image_url'] && <Image mt='1rem' src={event['image_url']} />}
+            {event['image_url'] &&
+              <Image mt='1rem' src={event['image_url']}
+            />}
             <StyledBox
               mt='1rem'
               flexWrap='wrap'
@@ -206,8 +223,8 @@ const Dashboard = () => {
           onClick={() => onAddOpen()}
           as={Button}
           p='2rem'
-          minW='480px'
-          minH='480px'
+          minW='500px'
+          minH='500px'
           borderWidth='1px'
         >
           <AddIcon m='auto'/>

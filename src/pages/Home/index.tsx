@@ -2,10 +2,10 @@ import React from 'react'
 import { Route, Switch, Redirect } from 'react-router-dom'
 import { Flex } from '@chakra-ui/react'
 
-import Dashboard from './Dashboard'
-import Navbar from '../components/Navbar'
-import Event from '../pages/Event'
-import ls from '../util/localstore'
+import Dashboard from '../Dashboard'
+import Navbar from '../../components/Navbar'
+import Event from '../Event'
+import ls from '../../util/localstore'
 
 const Home = () => {
   if (!ls.get('user')) {
