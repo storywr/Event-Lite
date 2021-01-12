@@ -50,7 +50,9 @@ const EditForm = ({ event, onClose, variantColor }: Props) => {
   }),
   { 
     onSuccess: ({ data }: any) => {
-      queryClient.setQueryData('events', (oldEvents: any) => oldEvents.map((oldEvent: Event) => oldEvent.id === data.id ? data : oldEvent))
+      // queryClient.setQueryData('events', (oldEvents: any) => oldEvents.map((oldEvent: Event) => oldEvent.id === data.id ? data : oldEvent))
+      // TODO: Sorting is currently done on the backend so the above update following mutation needs work
+      queryClient.refetchQueries('events')
       queryClient.setQueryData('event', data)
     }
   })
