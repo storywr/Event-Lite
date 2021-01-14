@@ -2,17 +2,10 @@ import React, { useEffect, useState } from 'react'
 import {
   Box,
   Button,
-  Flex,
   FormLabel,
-  Heading,
   IconButton,
-  Image,
   Input,
   InputGroup,
-  Menu,
-  MenuButton,
-  MenuList,
-  MenuItem,
   SimpleGrid,
   Spinner,
   useDisclosure,
@@ -20,14 +13,9 @@ import {
 } from '@chakra-ui/react'
 import { 
   AddIcon,
-  CalendarIcon,
   CloseIcon,
-  HamburgerIcon,
   SearchIcon,
-  StarIcon
 } from '@chakra-ui/icons'
-import format from 'date-fns/format'
-import { useHistory } from 'react-router-dom'
 
 import useDebouncedValue from '../../hooks/useDebouncedValue'
 import useEvents from '../../hooks/useEvents'
@@ -35,6 +23,7 @@ import Alert from '../../components/Alert'
 import AddModal from './AddModal'
 import DeleteModal from './DeleteModal'
 import EditModal from './EditModal'
+import EventCard from './EventCard'
 
 export interface Event {
   id: string | number
@@ -50,7 +39,6 @@ const Dashboard = () => {
   const [selectedEvent, setEvent] = useState<any>(null)
   const debouncedValue = useDebouncedValue(search, 500)
   const { data, error, isFetching, refetch } = useEvents(debouncedValue)
-  const history = useHistory()
 
   useEffect(() => {
     refetch()
@@ -126,96 +114,11 @@ const Dashboard = () => {
       </Box>
       <SimpleGrid mb='3rem' columns={3} spacing={35}>
         {data.map((event: Event) => (
-          <Box
-            _hover={{
-              boxShadow: '0 8px 12px -1px rgba(0, 0, 0, 0.2), 0 4px 8px -1px rgba(0, 0, 0, 0.12)',
-            }}
-            cursor='pointer'
-            boxShadow='md'
-            rounded='lg'
-            p='1rem'
-            minW='500px'
-            minH='500px'
-            maxH='500px'
-            maxW='500px'
-            borderWidth='1px'
-            overflowY='hidden'
-            key={event.id}
-            onClick={() => history.push(`/events/${event.id}`)}
-          >
-            <Flex justifyContent='space-between'>
-              <Flex
-                textTransform='uppercase'
-                fontSize='md'
-                fontWeight='bold'
-                maxW='80%'
-                flexWrap='wrap'
-              >
-                {event.title}
-              </Flex>
-              <Menu>
-                <MenuButton
-                  onClick={e => e.stopPropagation()}
-                  variant='ghost'
-                  as={Button}
-                >
-                  <HamburgerIcon />
-                </MenuButton>
-                <MenuList>
-                  <MenuItem
-                    onClick={e => {
-                      e.stopPropagation()
-                      handleEditClick(event)}
-                    }
-                  >
-                    Edit
-                  </MenuItem>
-                  <MenuItem
-                    onClick={e => {
-                      e.stopPropagation()
-                      handleDeleteClick(event)}
-                    }
-                  >
-                    Delete
-                  </MenuItem>
-                </MenuList>
-              </Menu>
-            </Flex>
-            <Flex
-              alignItems='center'
-              fontWeight='semibold'
-              mt='0.5rem'
-              maxW='80%'
-              flexWrap='wrap'
-            >
-              <StarIcon mr='0.5rem'/> {event.location}
-            </Flex>
-            <Flex
-              alignItems='center'
-              fontWeight='semibold'
-              mt='0.5rem'
-              maxW='80%' 
-              flexWrap='wrap'
-            >
-              <CalendarIcon mr='0.5rem' />
-              {format(new Date(event['start_datetime']), 'M/d/yyyy, h:mm aa')}
-            </Flex>
-            {event['image_url'] &&
-              <Image
-                m='auto'
-                minH='225px'
-                maxH='225px'
-                mt='1rem'
-                src={event['image_url']}
-              />
-            }
-            <Box mt='1rem'>
-              <Heading as='h5' size='sm'>
-                About
-              </Heading>
-              {event.description}
-            </Box>
-          </Box>
+          <EventCard
+            event={event}
+            handleDeleteClick={handleDeleteClick}
+            handleEditClick={handleEditClick}
+          />
         ))}
         <Button
           onClick={() => onAddOpen()}
