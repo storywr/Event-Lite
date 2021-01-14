@@ -31,7 +31,7 @@ interface EventProps {
 
 const AddForm = ({ onClose, variantColor }: Props) => {
   const { register, handleSubmit } = useForm()
-  const [datetime, setDatetime] = useState(new Date())
+  const [datetime, setDatetime] = useState<Date>(new Date())
   const queryClient = useQueryClient()
 
   const mutation = useMutation(({ imageUrl, description, title, location }: EventProps) => axios({
@@ -84,7 +84,7 @@ const AddForm = ({ onClose, variantColor }: Props) => {
           <FormLabel>Date</FormLabel>
           <DatePicker
             selected={datetime}
-            onChange={(date: any) => setDatetime(date)}
+            onChange={(date: Date) => setDatetime(date)}
             showTimeSelect
             dateFormat="MMMM d, yyyy h:mm aa"
             inline
