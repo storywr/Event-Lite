@@ -22,14 +22,9 @@ import {
   StarIcon
 } from '@chakra-ui/icons'
 import format from 'date-fns/format'
-import styled from '@emotion/styled'
 
 import Modals from '../Dashboard/Modals'
 import Alert from '../../components/Alert'
-
-const StyledBox = styled(Box)`
-  white-space: pre-wrap;
-`
 
 const Event = () => {
   const { id }: any = useParams()
@@ -131,7 +126,8 @@ const Event = () => {
             src={event['image_url']}
           />
         }
-        <StyledBox
+        <Box
+          whiteSpace='pre-wrap'
           mt='1rem'
           flexWrap='wrap'
         >
@@ -139,7 +135,7 @@ const Event = () => {
             About
           </Heading>
           {event.description}
-        </StyledBox>
+        </Box>
       </Box>
     </Box>
   )
