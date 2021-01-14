@@ -18,7 +18,7 @@ import TimePickerWrapper from './TimePickerWrapper'
 import api from '../../../util/api'
 
 interface Props {
-  onClose: () => {}
+  onClose: () => void
   variantColor: string
 }
 
