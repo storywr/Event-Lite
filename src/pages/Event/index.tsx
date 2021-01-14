@@ -24,9 +24,8 @@ import {
 import format from 'date-fns/format'
 import styled from '@emotion/styled'
 
+import Modals from '../Dashboard/Modals'
 import Alert from '../../components/Alert'
-import DeleteModal from '../Dashboard/DeleteModal'
-import EditModal from '../Dashboard/EditModal'
 
 const StyledBox = styled(Box)`
   white-space: pre-wrap;
@@ -54,21 +53,18 @@ const Event = () => {
 
   return (
     <Box p='1rem' margin='auto'>
-      <DeleteModal
+      <Modals
         event={event}
-        isOpen={isDeleteOpen}
-        onClose={onDeleteClose}
+        isOpen={{
+          edit: isEditOpen,
+          delete: isDeleteOpen
+        }}
         isViewing
+        onClose={{
+          edit: onEditClose,
+          delete: onDeleteClose
+        }}
       />
-      <EditModal
-        event={event}
-        isOpen={isEditOpen}
-        onClose={onEditClose}
-      />
-      {/* <Flex cursor='pointer' onClick={() => history.push('/')} mb='1rem' fontSize='md' fontWeight='bold' alignItems='center' justifyContent='flex-end'>
-        <ArrowBackIcon mr='0.25rem' />
-        Return to Events
-      </Flex> */}
       <Flex justifyContent='flex-end'>
         <Button
           mb='0.5rem'
