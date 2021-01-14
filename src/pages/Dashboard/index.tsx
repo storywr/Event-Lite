@@ -20,10 +20,8 @@ import {
 import useDebouncedValue from '../../hooks/useDebouncedValue'
 import useEvents from '../../hooks/useEvents'
 import Alert from '../../components/Alert'
-import AddModal from './AddModal'
-import DeleteModal from './DeleteModal'
-import EditModal from './EditModal'
 import EventCard from './EventCard'
+import Modals from './Modals'
 
 export interface Event {
   id: string | number
@@ -77,19 +75,10 @@ const Dashboard = () => {
 
   return (
     <Box display='block'>
-      <DeleteModal
+      <Modals
         event={selectedEvent}
-        isOpen={isDeleteOpen}
-        onClose={onDeleteClose}
-      />
-      <EditModal
-        event={selectedEvent}
-        isOpen={isEditOpen}
-        onClose={onEditClose}
-      />
-      <AddModal
-        isOpen={isAddOpen}
-        onClose={onAddClose}
+        isOpen={{ add: isAddOpen, edit: isEditOpen, delete: isDeleteOpen }}
+        onClose={{ add: onAddClose, edit: onEditClose, delete: onDeleteClose }}
       />
       <Box mb='2rem' w='500px'>
         <FormLabel><SearchIcon /> Search for Event</FormLabel>

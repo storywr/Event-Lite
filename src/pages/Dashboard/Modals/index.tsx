@@ -1,0 +1,41 @@
+import React from 'react'
+
+import AddModal from '../AddModal'
+import DeleteModal from '../DeleteModal'
+import EditModal from '../EditModal'
+import { Event } from '../'
+
+interface Props {
+  event: Event
+  isOpen: {
+    add: boolean
+    delete: boolean
+    edit: boolean
+  }
+  onClose: {
+    add: boolean
+    delete: boolean
+    edit: boolean
+  }
+}
+
+const Modals = ({ event, isOpen, onClose }: Props) => (
+  <>
+    <DeleteModal
+      event={event}
+      isOpen={isOpen.delete}
+      onClose={onClose.delete}
+    />
+    <EditModal
+      event={event}
+      isOpen={isOpen.edit}
+      onClose={onClose.edit}
+    />
+    <AddModal
+      isOpen={isOpen.add}
+      onClose={onClose.add}
+    />
+  </>
+)
+
+export default Modals
