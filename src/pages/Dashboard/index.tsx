@@ -33,7 +33,7 @@ export interface Event {
 }
 
 const Dashboard = () => {
-  const [search, setSearch] = useState('')
+  const [search, setSearch] = useState<string>('')
   const [selectedEvent, setEvent] = useState<any>(null)
   const debouncedValue = useDebouncedValue(search, 500)
   const { data, error, isFetching, refetch } = useEvents(debouncedValue)
