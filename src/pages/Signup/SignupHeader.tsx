@@ -7,7 +7,11 @@ import {
 } from '@chakra-ui/react'
 import { Link as ReactRouterLink } from 'react-router-dom'
 
-const SignupHeader = ({ variantColor }: any) => (
+interface Props {
+  variantColor: string
+}
+
+const SignupHeader = ({ variantColor }: Props) => (
   <Box textAlign='center'>
     <Heading>Sign Up For Account</Heading>
     <Text>

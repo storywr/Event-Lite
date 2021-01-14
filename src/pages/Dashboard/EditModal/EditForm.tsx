@@ -20,7 +20,7 @@ import api from '../../../util/api'
 
 interface Props {
   event: Event
-  onClose: () => {}
+  onClose: () => void
   variantColor: string
 }
 

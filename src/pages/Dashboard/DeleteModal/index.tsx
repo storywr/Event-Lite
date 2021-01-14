@@ -19,8 +19,8 @@ import api from '../../../util/api'
 interface Props {
   event: Event
   isViewing?: boolean
-  isOpen: any
-  onClose: any
+  isOpen: boolean
+  onClose: () => void
 }
 
 const DeleteModal = ({ isViewing, event, isOpen, onClose }: Props) => {

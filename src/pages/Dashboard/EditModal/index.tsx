@@ -13,8 +13,8 @@ import EditForm from './EditForm'
 
 interface Props {
   event: Event
-  isOpen: any
-  onClose: any
+  isOpen: boolean
+  onClose: () => void
 }
 
 const EditModal = ({ event, isOpen, onClose }: Props) => (
