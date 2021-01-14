@@ -77,8 +77,16 @@ const Dashboard = () => {
     <Box display='block'>
       <Modals
         event={selectedEvent}
-        isOpen={{ add: isAddOpen, edit: isEditOpen, delete: isDeleteOpen }}
-        onClose={{ add: onAddClose, edit: onEditClose, delete: onDeleteClose }}
+        isOpen={{
+          add: isAddOpen,
+          edit: isEditOpen,
+          delete: isDeleteOpen
+        }}
+        onClose={{
+          add: onAddClose,
+          edit: onEditClose,
+          delete: onDeleteClose
+        }}
       />
       <Box mb='2rem' w='500px'>
         <FormLabel><SearchIcon /> Search for Event</FormLabel>
