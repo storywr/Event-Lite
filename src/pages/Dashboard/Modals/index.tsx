@@ -13,9 +13,9 @@ interface Props {
     edit: boolean
   }
   onClose: {
-    add: boolean
-    delete: boolean
-    edit: boolean
+    add: () => void
+    delete: () => void
+    edit: () => void
   }
 }
 
