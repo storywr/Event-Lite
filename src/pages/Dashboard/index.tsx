@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import {
   Box,
   Button,
@@ -38,7 +38,7 @@ const Dashboard = () => {
   const debouncedValue = useDebouncedValue(search, 500)
   const { data, error, isFetching, refetch } = useEvents(debouncedValue)
 
-  useEffect(() => {
+  useMemo(() => {
     refetch()
   }, [debouncedValue])
 
