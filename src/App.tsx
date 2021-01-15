@@ -19,10 +19,10 @@ import Signup from './pages/Signup'
 const queryClient = new QueryClient()
 
 const App = () => {
-  const [user, setUser] = useState<string | null>(null)
+  const [user, setUser] = useState<any>(null)
 
   const login = (currentUser: string) => {
-    setUser(currentUser)
+    setUser(JSON.parse(currentUser))
   }
 
   const logout = () => {
@@ -32,7 +32,7 @@ const App = () => {
 
   useEffect(() => {
     const user = ls.get('user')
-    setUser(user)
+    setUser(JSON.parse(user))
   }, [])
 
   return (

@@ -38,7 +38,7 @@ const EditForm = ({ event, onClose, variantColor }: Props) => {
 
   const mutation = useMutation(({ imageUrl, description, title, location }: EventProps) => axios({
     method: 'PUT',
-    url: `${api}/events/${event.id}`,
+    url: `${api}/users/${event.user.id}/events/${event.id}`,
     headers: JSON.parse(localStorage.user),
     data: { event: {
       description,

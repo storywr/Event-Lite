@@ -17,8 +17,6 @@ import {
   SearchIcon,
 } from '@chakra-ui/icons'
 
-import useDebouncedValue from '../../hooks/useDebouncedValue'
-import useEvents from '../../hooks/useEvents'
 import Alert from '../../components/Alert'
 import EventCard from './EventCard'
 import Modals from './Modals'
@@ -30,17 +28,14 @@ export interface Event {
   location: string
   start_datetime: string
   image_url: string
+  user: {
+    email: string
+    id: string | number
+  }
 }
 
-const Dashboard = () => {
-  const [search, setSearch] = useState<string>('')
+const Dashboard = ({ data, error, isFetching, setSearch, search }: any) => {
   const [selectedEvent, setEvent] = useState<any>(null)
-  const debouncedValue = useDebouncedValue(search, 500)
-  const { data, error, isFetching, refetch } = useEvents(debouncedValue)
-
-  useMemo(() => {
-    refetch()
-  }, [debouncedValue])
 
   const {
     isOpen: isDeleteOpen,

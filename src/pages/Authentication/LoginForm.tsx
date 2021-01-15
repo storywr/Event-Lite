@@ -48,7 +48,9 @@ const LoginForm = ({ variantColor }: Props) => {
       const user = JSON.stringify({
         'access-token': headers['access-token'],
         'client': headers['client'],
-        'uid': data.data.uid
+        'uid': data.data.uid,
+        'id': data.data.id,
+        'nickname': data.data.nickname
       })
 
       ls.set('user', user)

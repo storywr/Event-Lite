@@ -18,6 +18,7 @@ import {
 import { 
   ArrowBackIcon,
   CalendarIcon,
+  EmailIcon,
   HamburgerIcon,
   StarIcon
 } from '@chakra-ui/icons'
@@ -27,8 +28,8 @@ import Modals from '../Dashboard/Modals'
 import Alert from '../../components/Alert'
 
 const Event = () => {
-  const { id }: any = useParams()
-  const { data: event, error, isFetching } = useEvent(id)
+  const { id, userId }: any = useParams()
+  const { data: event, error, isFetching } = useEvent(userId, id)
   const history = useHistory()
 
   const {
@@ -90,15 +91,17 @@ const Event = () => {
               {event.title}
             </Heading>
           </Flex>
-          <Menu>
-            <MenuButton variant='ghost' as={Button}>
-              <HamburgerIcon />
-            </MenuButton>
-            <MenuList>
-              <MenuItem onClick={() => onEditOpen()}>Edit</MenuItem>
-              <MenuItem onClick={() => onDeleteOpen()}>Delete</MenuItem>
-            </MenuList>
-          </Menu>
+          {event.currentUserCanEdit &&
+            <Menu>
+              <MenuButton variant='ghost' as={Button}>
+                <HamburgerIcon />
+              </MenuButton>
+              <MenuList>
+                <MenuItem onClick={() => onEditOpen()}>Edit</MenuItem>
+                <MenuItem onClick={() => onDeleteOpen()}>Delete</MenuItem>
+              </MenuList>
+            </Menu>
+          }
         </Flex>
         <Flex
           alignItems='center'
@@ -108,6 +111,15 @@ const Event = () => {
           flexWrap='wrap'
         >
           <StarIcon mr='0.5rem'/> {event.location}
+        </Flex>
+        <Flex
+          alignItems='center'
+          fontWeight='semibold'
+          mt='0.5rem'
+          maxW='80%'
+          flexWrap='wrap'
+        >
+          <EmailIcon mr='0.5rem'/> {event.user.email}
         </Flex>
         <Flex
           alignItems='center'

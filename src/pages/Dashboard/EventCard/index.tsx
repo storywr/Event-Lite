@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import {
   Box,
   Button,
@@ -12,12 +12,14 @@ import {
 } from '@chakra-ui/react'
 import { 
   CalendarIcon,
+  EmailIcon,
   HamburgerIcon,
   StarIcon
 } from '@chakra-ui/icons'
 import format from 'date-fns/format'
 import { useHistory } from 'react-router-dom'
 
+import { AuthContext } from '../../../context'
 import { Event } from '../'
 
 interface Props {
@@ -28,7 +30,8 @@ interface Props {
 
 const EventCard = ({ event, handleEditClick, handleDeleteClick }: Props) => {
   const history = useHistory()
-
+  const authContext = useContext(AuthContext)
+  
   return (
     <Box
       _hover={{
@@ -45,9 +48,9 @@ const EventCard = ({ event, handleEditClick, handleDeleteClick }: Props) => {
       borderWidth='1px'
       overflowY='hidden'
       key={event.id}
-      onClick={() => history.push(`/events/${event.id}`)}
+      onClick={() => history.push(`/users/${event.user.id}/events/${event.id}`)}
     >
-      <Flex justifyContent='space-between'>
+      <Flex h='40px' alignItems='flex-start' justifyContent='space-between'>
         <Flex
           textTransform='uppercase'
           fontSize='md'
@@ -57,33 +60,35 @@ const EventCard = ({ event, handleEditClick, handleDeleteClick }: Props) => {
         >
           {event.title}
         </Flex>
-        <Menu>
-          <MenuButton
-            onClick={e => e.stopPropagation()}
-            variant='ghost'
-            as={Button}
-          >
-            <HamburgerIcon />
-          </MenuButton>
-          <MenuList>
-            <MenuItem
-              onClick={e => {
-                e.stopPropagation()
-                handleEditClick(event)}
-              }
+        {authContext?.user?.id === event.user.id &&
+          <Menu>
+            <MenuButton
+              onClick={e => e.stopPropagation()}
+              variant='ghost'
+              as={Button}
             >
-              Edit
-            </MenuItem>
-            <MenuItem
-              onClick={e => {
-                e.stopPropagation()
-                handleDeleteClick(event)}
-              }
-            >
-              Delete
-            </MenuItem>
-          </MenuList>
-        </Menu>
+              <HamburgerIcon />
+            </MenuButton>
+            <MenuList>
+              <MenuItem
+                onClick={e => {
+                  e.stopPropagation()
+                  handleEditClick(event)}
+                }
+              >
+                Edit
+              </MenuItem>
+              <MenuItem
+                onClick={e => {
+                  e.stopPropagation()
+                  handleDeleteClick(event)}
+                }
+              >
+                Delete
+              </MenuItem>
+            </MenuList>
+          </Menu>
+        }
       </Flex>
       <Flex
         alignItems='center'
@@ -93,6 +98,15 @@ const EventCard = ({ event, handleEditClick, handleDeleteClick }: Props) => {
         flexWrap='wrap'
       >
         <StarIcon mr='0.5rem'/> {event.location}
+      </Flex>
+      <Flex
+        alignItems='center'
+        fontWeight='semibold'
+        mt='0.5rem'
+        maxW='80%'
+        flexWrap='wrap'
+      >
+        <EmailIcon mr='0.5rem'/> {event.user.email}
       </Flex>
       <Flex
         alignItems='center'
@@ -113,7 +127,7 @@ const EventCard = ({ event, handleEditClick, handleDeleteClick }: Props) => {
           src={event['image_url']}
         />
       }
-      <Box mt='1rem'>
+      <Box mt='0.5rem'>
         <Heading as='h5' size='sm'>
           About
         </Heading>

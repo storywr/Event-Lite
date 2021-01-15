@@ -38,6 +38,13 @@ const Navbar = () => {
         <Button
           ml='1rem'
           variant='ghost'
+          onClick={() => history.replace(`/users/${authContext.user.id}`)}
+        >
+          My Events
+        </Button> 
+        <Button
+          ml='1rem'
+          variant='ghost'
           onClick={() => authContext.logout()}
         >
           Logout
