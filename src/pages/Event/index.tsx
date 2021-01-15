@@ -8,6 +8,7 @@ import {
   Flex,
   Heading,
   Image,
+  Link,
   Menu,
   MenuButton,
   MenuList,
@@ -72,14 +73,14 @@ const Event = () => {
         </Button>
       </Flex>
       <Box
-        p='25px'
+        p='15px 25px 25px 25px'
         mb='5rem'
         maxW='600px'
         borderWidth='1px'
         boxShadow='md'
         rounded='lg'
       >
-        <Flex justifyContent='space-between'>
+        <Flex h='40px' alignItems='center' justifyContent='space-between'>
           <Flex
             textTransform='uppercase'
             fontSize='md'
@@ -113,11 +114,13 @@ const Event = () => {
           <StarIcon mr='0.5rem'/> {event.location}
         </Flex>
         <Flex
+          as={Link}
           alignItems='center'
           fontWeight='semibold'
           mt='0.5rem'
           maxW='80%'
           flexWrap='wrap'
+          onClick={() => history.push(`/users/${event.user.id}`)}
         >
           <EmailIcon mr='0.5rem'/> {event.user.email}
         </Flex>

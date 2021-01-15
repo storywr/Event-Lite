@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import axios from 'axios'
 import { useHistory } from 'react-router-dom'
 import {
@@ -15,6 +15,7 @@ import { useQueryClient, useMutation } from 'react-query'
 
 import { Event } from '../'
 import api from '../../../util/api'
+import { AuthContext } from '../../../context'
 
 interface Props {
   event: Event
@@ -26,10 +27,11 @@ interface Props {
 const DeleteModal = ({ isViewing, event, isOpen, onClose }: Props) => {
   const queryClient = useQueryClient()
   const history = useHistory()
+  const authContext = useContext(AuthContext)
 
   const mutation = useMutation(() => axios({
     method: 'DELETE',
-    url: `${api}/events/${event.id}`,
+    url: `${api}/users/${authContext.user.id}/events`,
     headers: JSON.parse(localStorage.user),
   }),
   { 
