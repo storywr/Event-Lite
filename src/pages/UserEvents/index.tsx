@@ -12,7 +12,7 @@ const UserEvents = () => {
 
   useMemo(() => {
     refetch()
-  }, [debouncedValue])
+  }, [debouncedValue, id])
 
   return (
     <Dashboard
