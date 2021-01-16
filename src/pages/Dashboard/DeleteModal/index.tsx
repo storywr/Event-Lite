@@ -31,7 +31,7 @@ const DeleteModal = ({ isViewing, event, isOpen, onClose }: Props) => {
 
   const mutation = useMutation(() => axios({
     method: 'DELETE',
-    url: `${api}/users/${authContext.user.id}/events`,
+    url: `${api}/users/${authContext.user.id}/events/${event.id}`,
     headers: JSON.parse(localStorage.user),
   }),
   { 
