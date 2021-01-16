@@ -11,8 +11,8 @@ import {
 import AddForm from './AddForm'
 
 interface Props {
-  isOpen: any
-  onClose: any
+  isOpen: boolean
+  onClose: () => void
 }
 
 const AddModal = ({ isOpen, onClose }: Props) => (

@@ -33,10 +33,12 @@ const Modals = ({ event, isOpen, isViewing, onClose }: Props) => (
       isOpen={isOpen.edit}
       onClose={onClose.edit}
     />
-    <AddModal
-      isOpen={isOpen.add}
-      onClose={onClose.add}
-    />
+    {isOpen.add && onClose.add &&
+      <AddModal
+        isOpen={isOpen.add}
+        onClose={onClose.add}
+      />
+    }
   </>
 )
 

@@ -8,6 +8,7 @@ import {
   Flex,
   Heading,
   Image,
+  Link,
   Menu,
   MenuButton,
   MenuList,
@@ -18,22 +19,18 @@ import {
 import { 
   ArrowBackIcon,
   CalendarIcon,
+  EmailIcon,
   HamburgerIcon,
   StarIcon
 } from '@chakra-ui/icons'
 import format from 'date-fns/format'
-import styled from '@emotion/styled'
 
 import Modals from '../Dashboard/Modals'
 import Alert from '../../components/Alert'
 
-const StyledBox = styled(Box)`
-  white-space: pre-wrap;
-`
-
 const Event = () => {
-  const { id }: any = useParams()
-  const { data: event, error, isFetching } = useEvent(id)
+  const { id, userId }: any = useParams()
+  const { data: event, error, isFetching } = useEvent(userId, id)
   const history = useHistory()
 
   const {
@@ -76,14 +73,14 @@ const Event = () => {
         </Button>
       </Flex>
       <Box
-        p='25px'
+        p='15px 25px 25px 25px'
         mb='5rem'
         maxW='600px'
         borderWidth='1px'
         boxShadow='md'
         rounded='lg'
       >
-        <Flex justifyContent='space-between'>
+        <Flex h='40px' alignItems='center' justifyContent='space-between'>
           <Flex
             textTransform='uppercase'
             fontSize='md'
@@ -95,15 +92,17 @@ const Event = () => {
               {event.title}
             </Heading>
           </Flex>
-          <Menu>
-            <MenuButton variant='ghost' as={Button}>
-              <HamburgerIcon />
-            </MenuButton>
-            <MenuList>
-              <MenuItem onClick={() => onEditOpen()}>Edit</MenuItem>
-              <MenuItem onClick={() => onDeleteOpen()}>Delete</MenuItem>
-            </MenuList>
-          </Menu>
+          {event.currentUserCanEdit &&
+            <Menu>
+              <MenuButton variant='ghost' as={Button}>
+                <HamburgerIcon />
+              </MenuButton>
+              <MenuList>
+                <MenuItem onClick={() => onEditOpen()}>Edit</MenuItem>
+                <MenuItem onClick={() => onDeleteOpen()}>Delete</MenuItem>
+              </MenuList>
+            </Menu>
+          }
         </Flex>
         <Flex
           alignItems='center'
@@ -113,6 +112,17 @@ const Event = () => {
           flexWrap='wrap'
         >
           <StarIcon mr='0.5rem'/> {event.location}
+        </Flex>
+        <Flex
+          as={Link}
+          alignItems='center'
+          fontWeight='semibold'
+          mt='0.5rem'
+          maxW='80%'
+          flexWrap='wrap'
+          onClick={() => history.push(`/users/${event.user.id}`)}
+        >
+          <EmailIcon mr='0.5rem'/> {event.user.email}
         </Flex>
         <Flex
           alignItems='center'
@@ -131,7 +141,8 @@ const Event = () => {
             src={event['image_url']}
           />
         }
-        <StyledBox
+        <Box
+          whiteSpace='pre-wrap'
           mt='1rem'
           flexWrap='wrap'
         >
@@ -139,7 +150,7 @@ const Event = () => {
             About
           </Heading>
           {event.description}
-        </StyledBox>
+        </Box>
       </Box>
     </Box>
   )

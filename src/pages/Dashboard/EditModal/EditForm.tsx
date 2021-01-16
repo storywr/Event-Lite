@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import axios from 'axios'
 import {
   Box,
@@ -17,10 +17,11 @@ import DatePicker from "react-datepicker"
 import { Event } from '../'
 import TimePickerWrapper from '../AddModal/TimePickerWrapper'
 import api from '../../../util/api'
+import { AuthContext } from '../../../context'
 
 interface Props {
   event: Event
-  onClose: () => {}
+  onClose: () => void
   variantColor: string
 }
 
@@ -33,12 +34,13 @@ interface EventProps {
 
 const EditForm = ({ event, onClose, variantColor }: Props) => {
   const { register, handleSubmit } = useForm()
-  const [datetime, setDatetime] = useState<any>(new Date(event['start_datetime']))
+  const [datetime, setDatetime] = useState<Date>(new Date(event['start_datetime']))
   const queryClient = useQueryClient()
+  const authContext = useContext(AuthContext)
 
   const mutation = useMutation(({ imageUrl, description, title, location }: EventProps) => axios({
     method: 'PUT',
-    url: `${api}/events/${event.id}`,
+    url: `${api}/users/${authContext.user.id}/events/${event.id}`,
     headers: JSON.parse(localStorage.user),
     data: { event: {
       description,
@@ -89,7 +91,7 @@ const EditForm = ({ event, onClose, variantColor }: Props) => {
           <FormLabel>Date</FormLabel>
           <DatePicker
             selected={datetime}
-            onChange={(date: any) => setDatetime(date)}
+            onChange={(date: Date) => setDatetime(date)}
             showTimeSelect
             dateFormat="MMMM d, yyyy h:mm aa"
             inline

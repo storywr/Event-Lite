@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react'
+import React, { useState } from 'react'
 import {
   Box,
   Button,
@@ -8,17 +8,17 @@ import {
   InputGroup,
   SimpleGrid,
   Spinner,
+  Heading,
   useDisclosure,
   InputRightElement
 } from '@chakra-ui/react'
 import { 
   AddIcon,
   CloseIcon,
+  EmailIcon,
   SearchIcon,
 } from '@chakra-ui/icons'
 
-import useDebouncedValue from '../../hooks/useDebouncedValue'
-import useEvents from '../../hooks/useEvents'
 import Alert from '../../components/Alert'
 import EventCard from './EventCard'
 import Modals from './Modals'
@@ -30,17 +30,14 @@ export interface Event {
   location: string
   start_datetime: string
   image_url: string
+  user: {
+    email: string
+    id: string | number
+  }
 }
 
-const Dashboard = () => {
-  const [search, setSearch] = useState('')
+const Dashboard = ({ data, error, isFetching, setSearch, search, isUser }: any) => {
   const [selectedEvent, setEvent] = useState<any>(null)
-  const debouncedValue = useDebouncedValue(search, 500)
-  const { data, error, isFetching, refetch } = useEvents(debouncedValue)
-
-  useMemo(() => {
-    refetch()
-  }, [debouncedValue])
 
   const {
     isOpen: isDeleteOpen,
@@ -89,6 +86,17 @@ const Dashboard = () => {
         }}
       />
       <Box mb='2rem' w='500px'>
+        {isUser && 
+          <Heading
+            display='flex'
+            alignItems='center'
+            mb='1rem'
+            as='h3'
+            size='md'
+          >
+            <EmailIcon mr='0.5rem'/> {data[0].user.email}
+          </Heading>
+        }
         <FormLabel><SearchIcon /> Search for Event</FormLabel>
         <InputGroup>
           <Input
