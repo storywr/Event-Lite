@@ -86,7 +86,7 @@ const Dashboard = ({ data, error, isFetching, setSearch, search, isUser }: any) 
         }}
       />
       <Box mb='2rem' w='500px'>
-        {isUser && 
+        {isUser && data.length > 0 &&
           <Heading
             display='flex'
             alignItems='center'
