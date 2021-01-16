@@ -76,6 +76,7 @@ const Event = () => {
         p='15px 25px 25px 25px'
         mb='5rem'
         maxW='600px'
+        minW='600px'
         borderWidth='1px'
         boxShadow='md'
         rounded='lg'
