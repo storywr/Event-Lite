@@ -21,6 +21,7 @@ const UserEvents = () => {
       isFetching={isFetching}
       setSearch={setSearch}
       search={search}
+      isUser
     />
   )
 }

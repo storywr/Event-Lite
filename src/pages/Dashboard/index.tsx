@@ -8,12 +8,14 @@ import {
   InputGroup,
   SimpleGrid,
   Spinner,
+  Heading,
   useDisclosure,
   InputRightElement
 } from '@chakra-ui/react'
 import { 
   AddIcon,
   CloseIcon,
+  EmailIcon,
   SearchIcon,
 } from '@chakra-ui/icons'
 
@@ -34,7 +36,7 @@ export interface Event {
   }
 }
 
-const Dashboard = ({ data, error, isFetching, setSearch, search }: any) => {
+const Dashboard = ({ data, error, isFetching, setSearch, search, isUser }: any) => {
   const [selectedEvent, setEvent] = useState<any>(null)
 
   const {
@@ -84,6 +86,17 @@ const Dashboard = ({ data, error, isFetching, setSearch, search }: any) => {
         }}
       />
       <Box mb='2rem' w='500px'>
+        {isUser && 
+          <Heading
+            display='flex'
+            alignItems='center'
+            mb='1rem'
+            as='h3'
+            size='md'
+          >
+            <EmailIcon mr='0.5rem'/> {data[0].user.email}
+          </Heading>
+        }
         <FormLabel><SearchIcon /> Search for Event</FormLabel>
         <InputGroup>
           <Input
