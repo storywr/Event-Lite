@@ -8,7 +8,7 @@ interface Props {
 }
 
 const useEvents = ({ userId, search }: Props) => {
-  return useQuery('events', async () => {
+  return useQuery('userEvents', async () => {
     const { data } = await axios({
       method: 'GET',
       url: `${api}/users/${userId}/events?search=${search}`,
