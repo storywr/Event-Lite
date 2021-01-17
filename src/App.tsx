@@ -9,6 +9,7 @@ import {
   QueryClient,
   QueryClientProvider
 } from 'react-query'
+import { ReactQueryDevtools } from 'react-query/devtools'
 
 import Home from './pages/Home'
 import { AuthContext } from './context'
@@ -39,6 +40,7 @@ const App = () => {
     <ChakraProvider theme={theme}>
       <AuthContext.Provider value={{ user, login, logout }}>
         <QueryClientProvider client={queryClient}>
+          <ReactQueryDevtools initialIsOpen />
           <Router>
             <Switch>
               <Route exact path='/signup'>
