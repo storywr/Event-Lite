@@ -36,7 +36,21 @@ export interface Event {
   }
 }
 
-const Dashboard = ({ data, error, isFetching, setSearch, search, isUser }: any) => {
+type Search = string
+
+interface Props {
+  userEvents: any
+  setSearch: (search: Search) => void
+  search: Search
+  isUser?: boolean
+}
+
+const Dashboard = ({
+  userEvents: { data, error, isFetching },
+  setSearch,
+  search,
+  isUser
+}: Props) => {
   const [selectedEvent, setEvent] = useState<any>(null)
 
   const {
