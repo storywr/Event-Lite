@@ -140,13 +140,11 @@ const Event = () => {
           <CalendarIcon mr='0.5rem' />
           {format(new Date(event['start_datetime']), 'M/d/yyyy, h:mm aa')}
         </Flex>
-        {hasImage &&
-          <Image
-            maxW='550px'
-            mt='1rem'
-            src={event['image_url']}
-          />
-        }
+        <Image
+          maxW='550px'
+          mt='1rem'
+          src={hasImage ? event['image_url'] : 'https://via.placeholder.com/550x227?text=No+Image'}
+        />
         <Box
           whiteSpace='pre-wrap'
           mt='1rem'

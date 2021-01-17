@@ -121,15 +121,13 @@ const EventCard = ({ event, handleEditClick, handleDeleteClick }: Props) => {
         <CalendarIcon mr='0.5rem' />
         {format(new Date(event['start_datetime']), 'M/d/yyyy, h:mm aa')}
       </Flex>
-      {hasImage &&
-        <Image
-          m='auto'
-          minH='225px'
-          maxH='225px'
-          mt='1rem'
-          src={event['image_url']}
-        />
-      }
+      <Image
+        m='auto'
+        minH='225px'
+        maxH='225px'
+        mt='1rem'
+        src={hasImage ? event['image_url'] : 'https://via.placeholder.com/466x225?text=No+Image'}
+      />
       <Box mt='0.5rem'>
         <Heading as='h5' size='sm'>
           About
