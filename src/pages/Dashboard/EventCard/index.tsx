@@ -32,6 +32,9 @@ const EventCard = ({ event, handleEditClick, handleDeleteClick }: Props) => {
   const history = useHistory()
   const authContext = useContext(AuthContext)
   
+  const isCurrentUser = () => event.user.id == authContext.user.id
+  const hasImage = () => !!event['image_url']
+
   return (
     <Box
       _hover={{
@@ -60,7 +63,7 @@ const EventCard = ({ event, handleEditClick, handleDeleteClick }: Props) => {
         >
           {event.title}
         </Flex>
-        {authContext?.user?.id === event.user.id &&
+        {isCurrentUser() &&
           <Menu>
             <MenuButton
               onClick={e => e.stopPropagation()}

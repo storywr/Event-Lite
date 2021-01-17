@@ -20,7 +20,7 @@ const UserEvents = () => {
       userEvents={userEvents}
       setSearch={setSearch}
       search={search}
-      isUser
+      userId={id}
     />
   )
 }

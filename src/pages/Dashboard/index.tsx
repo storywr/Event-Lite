@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useContext, useCallback, useState } from 'react'
 import {
   Box,
   Button,
@@ -22,6 +22,7 @@ import {
 import Alert from '../../components/Alert'
 import EventCard from './EventCard'
 import Modals from './Modals'
+import { AuthContext } from '../../context'
 
 export interface Event {
   id: string | number
@@ -42,16 +43,17 @@ interface Props {
   userEvents: any
   setSearch: (search: Search) => void
   search: Search
-  isUser?: boolean
+  userId?: string | number
 }
 
 const Dashboard = ({
   userEvents: { data, error, isFetching },
   setSearch,
   search,
-  isUser
+  userId
 }: Props) => {
   const [selectedEvent, setEvent] = useState<any>(null)
+  const authContext = useContext(AuthContext)
 
   const {
     isOpen: isDeleteOpen,
@@ -81,6 +83,10 @@ const Dashboard = ({
     onEditOpen()
   }
 
+  const isCurrentUser = useCallback(() => userId == authContext?.user?.id, [userId, authContext?.user?.id])
+  const isHome = useCallback(() => !userId, [userId])
+  const showButton = () => isCurrentUser() || isHome()
+
   if (isFetching) return <Spinner />
   if (error) return <Alert />
 
@@ -100,7 +106,7 @@ const Dashboard = ({
         }}
       />
       <Box mb='2rem' w='500px'>
-        {isUser && data.length > 0 &&
+        {userId && data.length > 0 &&
           <Heading
             display='flex'
             alignItems='center'
@@ -139,16 +145,18 @@ const Dashboard = ({
             handleEditClick={handleEditClick}
           />
         ))}
-        <Button
-          onClick={() => onAddOpen()}
-          as={Button}
-          p='2rem'
-          minW='500px'
-          minH='500px'
-          borderWidth='1px'
-        >
-          <AddIcon m='auto'/>
-        </Button>
+        {showButton() &&
+          <Button
+            onClick={() => onAddOpen()}
+            as={Button}
+            p='2rem'
+            minW='500px'
+            minH='500px'
+            borderWidth='1px'
+          >
+            <AddIcon m='auto'/>
+          </Button>
+        }
       </SimpleGrid>
     </Box>
   )
