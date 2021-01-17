@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useState } from 'react'
 import axios from 'axios'
 import {
   Box,
@@ -16,7 +16,7 @@ import DatePicker from "react-datepicker"
 
 import TimePickerWrapper from './TimePickerWrapper'
 import api from '../../../util/api'
-import { AuthContext } from '../../../context'
+import useAuth from '../../../hooks/useAuth'
 
 interface Props {
   onClose: () => void
@@ -34,11 +34,11 @@ const AddForm = ({ onClose, variantColor }: Props) => {
   const { register, handleSubmit } = useForm()
   const [datetime, setDatetime] = useState<Date>(new Date())
   const queryClient = useQueryClient()
-  const authContext = useContext(AuthContext)
+  const { user } = useAuth()
 
   const mutation = useMutation(({ imageUrl, description, title, location }: EventProps) => axios({
     method: 'POST',
-    url: `${api}/users/${authContext.user.id}/events`,
+    url: `${api}/users/${user?.id}/events`,
     headers: JSON.parse(localStorage.user),
     data: { event: {
       description,

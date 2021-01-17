@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import axios from 'axios'
 import {
   Box,
@@ -10,9 +10,9 @@ import {
 import { useForm } from 'react-hook-form'
 import { Redirect, useHistory } from 'react-router-dom'
 
-import { AuthContext } from '../../context'
 import ls from '../../util/localstore'
 import api from '../../util/api'
+import useAuth from '../../hooks/useAuth'
 
 interface Props {
   variantColor: string
@@ -24,11 +24,11 @@ interface LoginProps {
 }
 
 const SignupForm = ({ variantColor }: Props) => {
-  const authContext = useContext(AuthContext)
+  const { user, login } = useAuth()
   const { register, handleSubmit } = useForm()
   const history = useHistory()
 
-  if (authContext.user) {
+  if (user) {
     return <Redirect to={{ pathname: '/' }} />
   }
 
@@ -51,7 +51,7 @@ const SignupForm = ({ variantColor }: Props) => {
       })
 
       ls.set('user', user)
-      authContext.login(user)
+      login(user)
       history.push('/')
     })
   }

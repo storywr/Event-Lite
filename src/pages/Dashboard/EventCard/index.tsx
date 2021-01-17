@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import {
   Box,
   Button,
@@ -19,7 +19,7 @@ import {
 import format from 'date-fns/format'
 import { useHistory } from 'react-router-dom'
 
-import { AuthContext } from '../../../context'
+import useAuth from '../../../hooks/useAuth'
 import { Event } from '../'
 
 interface Props {
@@ -30,9 +30,9 @@ interface Props {
 
 const EventCard = ({ event, handleEditClick, handleDeleteClick }: Props) => {
   const history = useHistory()
-  const authContext = useContext(AuthContext)
-  
-  const isCurrentUser = () => event.user.id == authContext?.user?.id
+  const { user } = useAuth()
+
+  const isCurrentUser = () => event.user.id == user?.id
   const hasImage = event && !!event['image_url']
 
   return (

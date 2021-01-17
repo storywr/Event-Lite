@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useState } from 'react'
 import {
   Box,
   Button,
@@ -22,7 +22,7 @@ import {
 import Alert from '../../components/Alert'
 import EventCard from './EventCard'
 import Modals from './Modals'
-import { AuthContext } from '../../context'
+import useAuth from '../../hooks/useAuth'
 
 export interface Event {
   id: string | number
@@ -53,7 +53,7 @@ const Dashboard = ({
   userId
 }: Props) => {
   const [selectedEvent, setEvent] = useState<any>(null)
-  const authContext = useContext(AuthContext)
+  const { user } = useAuth()
 
   const {
     isOpen: isDeleteOpen,
@@ -83,7 +83,7 @@ const Dashboard = ({
     onEditOpen()
   }
 
-  const isCurrentUser = () => userId == authContext?.user?.id
+  const isCurrentUser = () => userId == user?.id
   const isHome = () => !userId
   const showButton = () => isCurrentUser() || isHome()
 

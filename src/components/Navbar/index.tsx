@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import {
   Button,
   Flex,
@@ -7,10 +7,10 @@ import {
 import { useHistory } from 'react-router-dom'
 
 import ThemeSelector from '../../components/ThemeSelector'
-import { AuthContext } from '../../context'
+import useAuth from '../../hooks/useAuth'
 
 const Navbar = () => {
-  const authContext = useContext(AuthContext)
+  const { user, logout } = useAuth()
   const history = useHistory()
 
   return (
@@ -38,14 +38,14 @@ const Navbar = () => {
         <Button
           ml='1rem'
           variant='ghost'
-          onClick={() => history.replace(`/users/${authContext.user.id}`)}
+          onClick={() => history.replace(`/users/${user.id}`)}
         >
           My Events
         </Button> 
         <Button
           ml='1rem'
           variant='ghost'
-          onClick={() => authContext.logout()}
+          onClick={() => logout()}
         >
           Logout
         </Button> 
