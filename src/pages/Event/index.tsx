@@ -141,9 +141,10 @@ const Event = () => {
           {format(new Date(event['start_datetime']), 'M/d/yyyy, h:mm aa')}
         </Flex>
         <Image
+          m='auto'
           maxW='550px'
           mt='1rem'
-          src={hasImage ? event['image_url'] : 'https://via.placeholder.com/550x227?text=No+Image'}
+          src={hasImage ? event['image_url'] : 'https://wa-al-anon.org/wp-content/themes/zoom-lite/assets/images/misc/placeholder/thumb-medium.png'}
         />
         <Box
           whiteSpace='pre-wrap'
