@@ -79,7 +79,7 @@ const EditForm = ({ event, onClose, variantColor }: Props) => {
 
         <FormControl mt={4}>
           <FormLabel>Description</FormLabel>
-          <Textarea minH='200px' size='md' ref={register} name='description' defaultValue={event.description} />
+          <Textarea size='md' ref={register} name='description' defaultValue={event.description} />
         </FormControl>
 
         <FormControl mt={4}>
