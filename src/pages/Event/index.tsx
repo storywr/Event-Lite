@@ -1,7 +1,5 @@
 import React from 'react'
 import { useHistory, useParams } from 'react-router-dom'
-import useEvent from '../../hooks/useEvent'
-
 import {
   Box,
   Button,
@@ -25,6 +23,7 @@ import {
 } from '@chakra-ui/icons'
 import format from 'date-fns/format'
 
+import useEvent from '../../hooks/useEvent'
 import Modals from '../Dashboard/Modals'
 import Alert from '../../components/Alert'
 
@@ -81,7 +80,11 @@ const Event = () => {
         boxShadow='md'
         rounded='lg'
       >
-        <Flex h='40px' alignItems='center' justifyContent='space-between'>
+        <Flex
+          h='40px'
+          alignItems='center'
+          justifyContent='space-between'
+        >
           <Flex
             textTransform='uppercase'
             fontSize='md'
