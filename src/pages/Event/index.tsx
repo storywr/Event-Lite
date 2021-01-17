@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import {
   Box,
@@ -43,6 +43,8 @@ const Event = () => {
     onOpen: onEditOpen,
     onClose: onEditClose
   } = useDisclosure()
+  
+  const hasImage = useCallback(() => !!event['image_url'], [event])
 
   if (isFetching) return <Spinner />
   if (error) return <Alert />
@@ -138,7 +140,7 @@ const Event = () => {
           <CalendarIcon mr='0.5rem' />
           {format(new Date(event['start_datetime']), 'M/d/yyyy, h:mm aa')}
         </Flex>
-        {event['image_url'] && 
+        {hasImage() &&
           <Image
             maxW='550px'
             mt='1rem'
