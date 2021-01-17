@@ -32,8 +32,8 @@ const EventCard = ({ event, handleEditClick, handleDeleteClick }: Props) => {
   const history = useHistory()
   const authContext = useContext(AuthContext)
   
-  const isCurrentUser = () => event.user.id == authContext.user.id
-  const hasImage = () => !!event['image_url']
+  const isCurrentUser = () => event.user.id == authContext?.user?.id
+  const hasImage = event && !!event['image_url']
 
   return (
     <Box
@@ -121,7 +121,7 @@ const EventCard = ({ event, handleEditClick, handleDeleteClick }: Props) => {
         <CalendarIcon mr='0.5rem' />
         {format(new Date(event['start_datetime']), 'M/d/yyyy, h:mm aa')}
       </Flex>
-      {event['image_url'] &&
+      {hasImage &&
         <Image
           m='auto'
           minH='225px'

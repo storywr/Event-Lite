@@ -1,4 +1,4 @@
-import React, { useContext, useCallback, useState } from 'react'
+import React, { useContext, useState } from 'react'
 import {
   Box,
   Button,
@@ -83,8 +83,8 @@ const Dashboard = ({
     onEditOpen()
   }
 
-  const isCurrentUser = useCallback(() => userId == authContext?.user?.id, [userId, authContext?.user?.id])
-  const isHome = useCallback(() => !userId, [userId])
+  const isCurrentUser = () => userId == authContext?.user?.id
+  const isHome = () => !userId
   const showButton = () => isCurrentUser() || isHome()
 
   if (isFetching) return <Spinner />
