@@ -29,7 +29,7 @@ const Navbar = () => {
         cursor='pointer'
       >
         <Heading as='h1' size='lg'>
-          Blue Sky eLearn
+          Event Lite
         </Heading>
       </Flex>
 

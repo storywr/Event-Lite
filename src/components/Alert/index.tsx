@@ -11,7 +11,7 @@ interface Props {
   title?: string
 }
 
-const BlueSkyAlert = ({ description = 'Something went wrong.', title = 'The request failed.' }: Props) => (
+const StyledAlert = ({ description = 'Something went wrong.', title = 'The request failed.' }: Props) => (
   <Alert
     status="error"
     variant="subtle"
@@ -33,4 +33,4 @@ const BlueSkyAlert = ({ description = 'Something went wrong.', title = 'The requ
   </Alert>
 )
 
-export default BlueSkyAlert
+export default StyledAlert
